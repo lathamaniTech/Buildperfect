@@ -8,7 +8,7 @@ class Sidenavigationbar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Colors.teal),
+            decoration: BoxDecoration(color: Colors.black),
             child: Text("Menu", style: TextStyle(color: Colors.white, fontSize: 24)),
           ),
           ListTile(

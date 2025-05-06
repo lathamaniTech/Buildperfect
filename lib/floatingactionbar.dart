@@ -9,7 +9,7 @@ class FloatingActionBarWidget extends StatelessWidget {
           SnackBar(content: Text("Floating Action Button Pressed")),
         );
       },
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.black,
       child: Icon(Icons.add),
     );
   }
