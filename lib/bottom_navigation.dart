@@ -1,3 +1,10 @@
+
+/*
+ @created on : May 7,2025
+ @author : Akshayaa 
+ Description : Custom widget for switching between tabs in the main screen
+*/
+
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
