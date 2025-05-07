@@ -51,9 +51,10 @@ Widget getPage() {
           Expanded(
             child: TabBarView(
               children: [
+                // 1. PendingLeads()
                 ListView(
                   children: [
-                    Cards(
+                    LeadTileCard(
                       title: "Rajesh",
                       subtitle: "1740984324466",
                       icon: Icons.person,
@@ -61,9 +62,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "03-03-2025",
                       location: "Chennai",
-                      loanamount: "7500",
+                      loanamount: "750000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Vishal",
                       subtitle: "1740984327286",
                       icon: Icons.person,
@@ -71,9 +72,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "03-05-2025",
                       location: "Chennai",
-                      loanamount: "8400",
+                      loanamount: "840000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Gaurav",
                       subtitle: "1742790445973",
                       icon: Icons.person,
@@ -81,9 +82,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "25-03-2025",
                       location: "Chennai",
-                      loanamount: "10000",
+                      loanamount: "100000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Shyam",
                       subtitle: "1742905368319",
                       icon: Icons.person,
@@ -91,53 +92,14 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "25-05-2025",
                       location: "Chennai",
-                      loanamount: "12500",
-                    ),
-                    Cards(
-                      title: "Rajesh",
-                      subtitle: "1740984324466",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "03-03-2025",
-                      location: "Chennai",
-                      loanamount: "7500",
-                    ),
-                    Cards(
-                      title: "Vishal",
-                      subtitle: "1740984327286",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "03-05-2025",
-                      location: "Chennai",
-                      loanamount: "8400",
-                    ),
-                    Cards(
-                      title: "Gaurav",
-                      subtitle: "1742790445973",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "25-03-2025",
-                      location: "Chennai",
-                      loanamount: "10000",
-                    ),
-                    Cards(
-                      title: "Shyam",
-                      subtitle: "1742905368319",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "25-05-2025",
-                      location: "Chennai",
-                      loanamount: "12500",
+                      loanamount: "125000",
                     ),
                   ],
                 ),
+                // CompletedLeads()
                 ListView(
                   children: [
-                    Cards(
+                    LeadTileCard(
                       title: "Rajesh",
                       subtitle: "1740984324466",
                       icon: Icons.person,
@@ -145,9 +107,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "03-03-2025",
                       location: "Chennai",
-                      loanamount: "7500",
+                      loanamount: "750000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Vishal",
                       subtitle: "1740984327286",
                       icon: Icons.person,
@@ -155,9 +117,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "03-05-2025",
                       location: "Chennai",
-                      loanamount: "8400",
+                      loanamount: "840000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Gaurav",
                       subtitle: "1742790445973",
                       icon: Icons.person,
@@ -165,9 +127,9 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "25-03-2025",
                       location: "Chennai",
-                      loanamount: "10000",
+                      loanamount: "100000",
                     ),
-                    Cards(
+                    LeadTileCard(
                       title: "Shyam",
                       subtitle: "1742905368319",
                       icon: Icons.person,
@@ -175,47 +137,7 @@ Widget getPage() {
                       phone: "7200517188",
                       createdon: "25-05-2025",
                       location: "Chennai",
-                      loanamount: "12500",
-                    ),
-                    Cards(
-                      title: "Rajesh",
-                      subtitle: "1740984324466",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "03-03-2025",
-                      location: "Chennai",
-                      loanamount: "7500",
-                    ),
-                    Cards(
-                      title: "Vishal",
-                      subtitle: "1740984327286",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "03-05-2025",
-                      location: "Chennai",
-                      loanamount: "8400",
-                    ),
-                    Cards(
-                      title: "Gaurav",
-                      subtitle: "1742790445973",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "25-03-2025",
-                      location: "Chennai",
-                      loanamount: "10000",
-                    ),
-                    Cards(
-                      title: "Shyam",
-                      subtitle: "1742905368319",
-                      icon: Icons.person,
-                      color: Colors.teal,
-                      phone: "7200517188",
-                      createdon: "25-05-2025",
-                      location: "Chennai",
-                      loanamount: "12500",
+                      loanamount: "125000",
                     ),
                   ],
                 ),

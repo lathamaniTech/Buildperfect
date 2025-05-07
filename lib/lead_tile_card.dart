@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:dashboard/utils.dart';
 
-class Cards extends StatelessWidget {
+class LeadTileCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
@@ -18,7 +18,7 @@ class Cards extends StatelessWidget {
   final String location;
   final String loanamount;
 
-  const Cards({
+  const LeadTileCard({
     Key? key,
     required this.title,
     required this.subtitle,
