@@ -6,11 +6,11 @@
 */
 
 import 'package:flutter/material.dart';
-import 'side_navigation.dart';
-import 'bottom_navigation.dart';
-import 'floating_action.dart';
-import 'lead_tab_bar.dart';
-import 'search_bar.dart';
+import '../widgets/side_navigation.dart';
+import '../widgets/bottom_navigation.dart';
+import '../widgets/floating_action.dart';
+import '../widgets/lead_tab_bar.dart';
+import '../widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
