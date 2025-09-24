@@ -1,4 +1,5 @@
 import 'package:dashboard/pages/home_screen.dart';
+import 'package:dashboard/pages/split_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Navigation App',
       theme: ThemeData.light(),
-      home: HomeScreen(),
+      home: SplitScreen(),
     );
   }
 }
