@@ -11,7 +11,7 @@ import 'package:dashboard/widgets/my_draggable_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-class ItemPanel extends StatelessWidget {
+class ItemPanel extends StatefulWidget {
   final List<PlaceholderWidgets> items;
   final int crossAxisCount;
   final double spacing;
@@ -32,6 +32,11 @@ class ItemPanel extends StatelessWidget {
     required this.hoveringData,
   });
 
+  @override
+  State<ItemPanel> createState() => _ItemsPanelState();
+}
+
+class _ItemsPanelState extends State<ItemPanel> {
   /// function return the corresponding formcontrol widgets
   /// which serves as visual placeholders which are dragged from
   /// left widgets panels
@@ -84,24 +89,9 @@ class ItemPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     /// have a copy of dragstartCopy to keep the local copy
     /// so
-    final itemsCopy = List<PlaceholderWidgets>.from(items);
-
-    PanelLocation? dragStartCopy;
-    PanelLocation? dropPreviewCopy;
-
-    if (dragStart != null) {
-      dragStartCopy = dragStart!.copyWith(null, null);
-    }
-
-    if (dropPreview != null && hoveringData != null) {
-      dropPreviewCopy = dropPreview!.copyWith(
-        min(items.length, dropPreview!.$1),
-        null,
-      );
-      itemsCopy.insert(min(dropPreview!.$1, itemsCopy.length), hoveringData!);
-    }
-
-    if (panel == Panel.upper) {
+    final itemsCopy = List<PlaceholderWidgets>.from(widget.items);
+    print('itemscopy => $itemsCopy');
+    if (widget.panel == Panel.upper) {
       return ListView(
         padding: const EdgeInsets.all(4),
         children:
@@ -131,7 +121,7 @@ class ItemPanel extends StatelessWidget {
       );
     } else {
       return GridView.count(
-        crossAxisCount: crossAxisCount,
+        crossAxisCount: widget.crossAxisCount,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
         padding: const EdgeInsets.all(4),
@@ -156,7 +146,7 @@ class ItemPanel extends StatelessWidget {
                 feedback: child,
                 child: MyDraggableWidget(
                   data: e.value.name,
-                  onDragStart: () => onDragStart((e.key, panel)),
+                  onDragStart: () => widget.onDragStart((e.key, widget.panel)),
                   child: child,
                 ),
               );

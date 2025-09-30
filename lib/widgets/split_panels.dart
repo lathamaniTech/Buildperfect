@@ -52,7 +52,7 @@ class _SplitPanelState extends State<SplitPanel> {
   void drop() {
     setState(() {
       if (dropPreview!.$2 == Panel.upper) {
-        upper.insert(min(dropPreview!.$1, upper.length), hoveringData!);
+        upper.insert(max(dropPreview!.$1, upper.length), hoveringData!);
       }
     });
   }
