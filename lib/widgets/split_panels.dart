@@ -21,6 +21,7 @@ class _SplitPanelState extends State<SplitPanel> {
     PlaceholderWidgets.Dropdown,
     PlaceholderWidgets.Checkbox,
     PlaceholderWidgets.Radio,
+    PlaceholderWidgets.Button,
   ];
 
   PanelLocation dragStart = (-1, Panel.lower);

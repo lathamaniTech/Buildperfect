@@ -72,6 +72,10 @@ class ItemPanel extends StatelessWidget {
           Text('Radio'),
         ],
       ),
+      PlaceholderWidgets.Button => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [ElevatedButton(onPressed: () {}, child: Text('Save'))],
+      ),
     };
   }
 
