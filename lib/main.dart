@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Navigation App',
       theme: ThemeData.light(),
       home: SplitScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
