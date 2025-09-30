@@ -13,3 +13,5 @@ extension CopyPanelLocation on PanelLocation {
     panel ?? this.$2,
   );
 }
+
+enum PlaceholderWidgets { Textfield, Dropdown, Checkbox, Radio }

@@ -15,13 +15,18 @@ class SplitPanel extends StatefulWidget {
 }
 
 class _SplitPanelState extends State<SplitPanel> {
-  final List<String> upper = [];
-  final List<String> lower = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  final List<PlaceholderWidgets> upper = [];
+  final List<PlaceholderWidgets> lower = [
+    PlaceholderWidgets.Textfield,
+    PlaceholderWidgets.Dropdown,
+    PlaceholderWidgets.Checkbox,
+    PlaceholderWidgets.Radio,
+  ];
 
   PanelLocation dragStart = (-1, Panel.lower);
-  PanelLocation dropPreview = (0, Panel.lower);
+  PanelLocation? dropPreview;
 
-  String hoveringData = '';
+  PlaceholderWidgets? hoveringData;
 
   /// this method is called when the itemplaceholder is dragged
   /// it's set  the state -> dragStart and data state properties
@@ -44,8 +49,8 @@ class _SplitPanelState extends State<SplitPanel> {
 
   void drop() {
     setState(() {
-      if (dropPreview.$2 == Panel.upper) {
-        upper.insert(min(dropPreview.$1, upper.length), hoveringData);
+      if (dropPreview!.$2 == Panel.upper) {
+        upper.insert(min(dropPreview!.$1, upper.length), hoveringData!);
       }
     });
   }
@@ -59,12 +64,12 @@ class _SplitPanelState extends State<SplitPanel> {
             constraints.maxWidth - (widget.itemSpacing * gutter);
         final columnWidth = spaceForColumns / widget.columns;
         final itemSize = Size(columnWidth, columnWidth);
-
+        final leftPanelWidth = constraints.maxWidth / 4;
         return Stack(
           children: [
             Positioned(
               // for draggable component
-              width: constraints.maxWidth / 6,
+              width: leftPanelWidth - 100,
               height: constraints.maxHeight,
               left: 0,
               child: MyDropRegion(
@@ -89,29 +94,32 @@ class _SplitPanelState extends State<SplitPanel> {
             Positioned(
               width: 2,
               height: constraints.maxHeight,
-              left: constraints.maxHeight / 2,
+              left: leftPanelWidth,
               child: ColoredBox(color: Colors.black),
             ),
             Positioned(
               // for dragtarget
-              width: constraints.maxWidth / 5,
+              width: constraints.maxWidth / 2,
               height: constraints.maxHeight,
-              right: 0,
-              child: MyDropRegion(
-                onDrop: drop,
-                updateDropPreview: updateDropPreview,
-                childSize: itemSize,
-                columns: widget.columns,
-                panel: Panel.upper,
-                child: ItemPanel(
-                  crossAxisCount: widget.columns,
-                  spacing: widget.itemSpacing,
-                  items: upper,
-                  onDragStart: onItemDragStart,
+              left: leftPanelWidth,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.blue.shade300),
+                child: MyDropRegion(
+                  onDrop: drop,
+                  updateDropPreview: updateDropPreview,
+                  childSize: itemSize,
+                  columns: widget.columns,
                   panel: Panel.upper,
-                  dragStart: dragStart,
-                  dropPreview: dropPreview,
-                  hoveringData: hoveringData,
+                  child: ItemPanel(
+                    crossAxisCount: widget.columns,
+                    spacing: widget.itemSpacing,
+                    items: upper,
+                    onDragStart: onItemDragStart,
+                    panel: Panel.upper,
+                    dragStart: dragStart,
+                    dropPreview: dropPreview,
+                    hoveringData: hoveringData,
+                  ),
                 ),
               ),
             ),
