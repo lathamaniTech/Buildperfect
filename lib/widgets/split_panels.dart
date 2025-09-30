@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:dashboard/types/drag_drop_types.dart';
 import 'package:dashboard/widgets/item_panel.dart';
 import 'package:dashboard/widgets/my_drop_region.dart';
+import 'package:dashboard/widgets/right_panel.dart';
 import 'package:flutter/material.dart';
 
 class SplitPanel extends StatefulWidget {
@@ -59,75 +60,93 @@ class _SplitPanelState extends State<SplitPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final gutter = widget.columns + 1;
-        final spaceForColumns =
-            constraints.maxWidth - (widget.itemSpacing * gutter);
-        final columnWidth = spaceForColumns / widget.columns;
-        final itemSize = Size(columnWidth, columnWidth);
-        final leftPanelWidth = constraints.maxWidth / 4;
-        return Stack(
-          children: [
-            Positioned(
-              // for draggable component
-              width: leftPanelWidth - 100,
-              height: constraints.maxHeight,
-              left: 0,
-              child: MyDropRegion(
-                onDrop: drop,
-                updateDropPreview: updateDropPreview,
-                childSize: itemSize,
-                columns: widget.columns,
-                panel: Panel.lower,
+    return Scaffold(
+      appBar: AppBar(title: Text('BuildPerfect'), elevation: 2),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final gutter = widget.columns + 1;
+          final spaceForColumns =
+              constraints.maxWidth - (widget.itemSpacing * gutter);
+          final columnWidth = spaceForColumns / widget.columns;
+          final itemSize = Size(columnWidth, columnWidth);
+          final leftPanelWidth = constraints.maxWidth / 4;
+          final centerPanelWidth = constraints.maxWidth / 2;
+          final rightPanelWidth =
+              constraints.maxWidth - (leftPanelWidth + centerPanelWidth);
+          return Padding(
+            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+            child: Stack(
+              children: [
+                Positioned(
+                  // for draggable component
+                  width: leftPanelWidth - 100,
+                  height: constraints.maxHeight,
+                  left: 0,
+                  child: MyDropRegion(
+                    onDrop: drop,
+                    updateDropPreview: updateDropPreview,
+                    childSize: itemSize,
+                    columns: widget.columns,
+                    panel: Panel.lower,
 
-                child: ItemPanel(
-                  crossAxisCount: widget.columns,
-                  spacing: widget.itemSpacing,
-                  items: lower,
-                  onDragStart: onItemDragStart,
-                  panel: Panel.lower,
-                  dragStart: dragStart,
-                  dropPreview: dropPreview,
-                  hoveringData: hoveringData,
-                ),
-              ),
-            ),
-            Positioned(
-              width: 2,
-              height: constraints.maxHeight,
-              left: leftPanelWidth,
-              child: ColoredBox(color: Colors.black),
-            ),
-            Positioned(
-              // for dragtarget
-              width: constraints.maxWidth / 2,
-              height: constraints.maxHeight,
-              left: leftPanelWidth,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: Colors.blue.shade300),
-                child: MyDropRegion(
-                  onDrop: drop,
-                  updateDropPreview: updateDropPreview,
-                  childSize: itemSize,
-                  columns: widget.columns,
-                  panel: Panel.upper,
-                  child: ItemPanel(
-                    crossAxisCount: widget.columns,
-                    spacing: widget.itemSpacing,
-                    items: upper,
-                    onDragStart: onItemDragStart,
-                    panel: Panel.upper,
-                    dragStart: dragStart,
-                    dropPreview: dropPreview,
-                    hoveringData: hoveringData,
+                    child: ItemPanel(
+                      crossAxisCount: widget.columns,
+                      spacing: widget.itemSpacing,
+                      items: lower,
+                      onDragStart: onItemDragStart,
+                      panel: Panel.lower,
+                      dragStart: dragStart,
+                      dropPreview: dropPreview,
+                      hoveringData: hoveringData,
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  width: 2,
+                  height: constraints.maxHeight,
+                  left: leftPanelWidth,
+                  child: ColoredBox(color: Colors.black),
+                ),
+                Positioned(
+                  // centerpanel for dragtarget
+                  width: centerPanelWidth,
+                  height: constraints.maxHeight,
+                  left: leftPanelWidth,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.blue.shade300),
+                    child: MyDropRegion(
+                      onDrop: drop,
+                      updateDropPreview: updateDropPreview,
+                      childSize: itemSize,
+                      columns: widget.columns,
+                      panel: Panel.upper,
+                      child: ItemPanel(
+                        crossAxisCount: widget.columns,
+                        spacing: widget.itemSpacing,
+                        items: upper,
+                        onDragStart: onItemDragStart,
+                        panel: Panel.upper,
+                        dragStart: dragStart,
+                        dropPreview: dropPreview,
+                        hoveringData: hoveringData,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  width: rightPanelWidth,
+                  height: constraints.maxHeight,
+                  right: 0,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: Colors.pink.shade100),
+                    child: RightPanel(),
+                  ),
+                ),
+              ],
             ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

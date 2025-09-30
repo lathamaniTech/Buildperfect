@@ -85,6 +85,24 @@ class _ItemsPanelState extends State<ItemPanel> {
     };
   }
 
+  //Icon(Icons.text_fields, color: Colors.white),
+  Widget renderIconsForFormControlsCard(PlaceholderWidgets controlName) {
+    return switch (controlName) {
+      PlaceholderWidgets.Textfield => Icon(
+        Icons.text_fields,
+        color: Colors.white,
+      ),
+      PlaceholderWidgets.Dropdown => Icon(Icons.menu, color: Colors.white),
+      PlaceholderWidgets.Checkbox => Icon(Icons.check_box, color: Colors.white),
+      PlaceholderWidgets.Radio => Icon(
+        Icons.radio_button_checked,
+        color: Colors.white,
+      ),
+      PlaceholderWidgets.Button => Icon(Icons.touch_app, color: Colors.white),
+      PlaceholderWidgets.Label => Icon(Icons.label, color: Colors.white),
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     /// have a copy of dragstartCopy to keep the local copy
@@ -128,17 +146,22 @@ class _ItemsPanelState extends State<ItemPanel> {
         children:
             itemsCopy.asMap().entries.map<Widget>((e) {
               Color textColor = Colors.white;
-              Widget child = SizedBox(
+              Widget child = Card(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.teal.shade400,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Center(
-                    child: Text(
-                      e.value.name,
-                      style: TextStyle(color: textColor, fontSize: 12),
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      renderIconsForFormControlsCard(e.value),
+                      Text(
+                        e.value.name,
+                        style: TextStyle(color: textColor, fontSize: 12),
+                      ),
+                    ],
                   ),
                 ),
               );
