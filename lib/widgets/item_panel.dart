@@ -76,6 +76,7 @@ class ItemPanel extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [ElevatedButton(onPressed: () {}, child: Text('Save'))],
       ),
+      PlaceholderWidgets.Label => Text('Label Field'),
     };
   }
 

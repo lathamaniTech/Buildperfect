@@ -14,4 +14,4 @@ extension CopyPanelLocation on PanelLocation {
   );
 }
 
-enum PlaceholderWidgets { Textfield, Dropdown, Checkbox, Radio, Button }
+enum PlaceholderWidgets { Textfield, Dropdown, Checkbox, Radio, Button, Label }
