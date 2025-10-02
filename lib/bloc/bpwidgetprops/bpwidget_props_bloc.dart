@@ -14,5 +14,5 @@ part 'bpwidget_props_event.dart';
 part 'bpwidget_props_state.dart';
 
 class BpwidgetPropsBloc extends Bloc<BpwidgetPropsEvent, BpwidgetPropsState> {
-  BpwidgetPropsBloc(super.initialState);
+  BpwidgetPropsBloc() : super(BpwidgetPropsState.init());
 }

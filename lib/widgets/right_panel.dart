@@ -11,12 +11,14 @@
                 [FormControlActions]    - wraps all controls for events conf
                 [FormControlDataSource] - wraps all controls for control's DS
 */
+import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/types/ui_controls_types.dart';
 import 'package:dashboard/widgets/page_props_button_segment.dart';
 import 'package:dashboard/widgets/rightpanels/actions_panel.dart';
 import 'package:dashboard/widgets/rightpanels/datasource.dart';
 import 'package:dashboard/widgets/rightpanels/props_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RightPanel extends StatefulWidget {
   /// onSegmentButtonClicked method send the current tab
@@ -64,15 +66,20 @@ class _RightPanelState extends State<RightPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          PagePropsButtonSegment(
-            onSegmentChanged: _segementButtonChangedListener,
-          ),
-          renderPanelsBasedOnSegment(),
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => BpwidgetPropsBloc(), lazy: false),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            PagePropsButtonSegment(
+              onSegmentChanged: _segementButtonChangedListener,
+            ),
+            renderPanelsBasedOnSegment(),
+          ],
+        ),
       ),
     );
   }

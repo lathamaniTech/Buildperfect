@@ -1,3 +1,4 @@
+import 'package:dashboard/widgets/rightpanels/panel_header.dart';
 import 'package:flutter/material.dart';
 
 class ActionsPanel extends StatefulWidget {
@@ -18,7 +19,14 @@ class _ActionsPanelState extends State<ActionsPanel> {
       child: SizedBox(
         width: widget.width,
         height: widget.height,
-        child: Column(children: [Text('Actions Panel')]),
+        child: Column(
+          children: [
+            PanelHeader(
+              panelWidth: widget.width,
+              title: 'Configure Formcontrol Actions',
+            ),
+          ],
+        ),
       ),
     );
   }

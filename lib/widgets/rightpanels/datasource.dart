@@ -1,3 +1,4 @@
+import 'package:dashboard/widgets/rightpanels/panel_header.dart';
 import 'package:flutter/material.dart';
 
 class DatasourcePanel extends StatefulWidget {
@@ -18,7 +19,14 @@ class _DatasourcePanelState extends State<DatasourcePanel> {
       child: SizedBox(
         width: widget.width,
         height: widget.height,
-        child: Column(children: [Text('Datasource Panel')]),
+        child: Column(
+          children: [
+            PanelHeader(
+              panelWidth: widget.width,
+              title: 'Configure Formcontrol Datasource',
+            ),
+          ],
+        ),
       ),
     );
   }

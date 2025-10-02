@@ -1,4 +1,7 @@
+import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
+import 'package:dashboard/widgets/rightpanels/panel_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PropsPanel extends StatefulWidget {
   final double width;
@@ -12,36 +15,260 @@ class PropsPanel extends StatefulWidget {
 class _PropsPanelState extends State<PropsPanel> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: SizedBox(
-        width: widget.width,
-        height: widget.height,
+    return BlocConsumer<BpwidgetPropsBloc, BpwidgetPropsState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Card(
+          color: Colors.white,
+          child: SizedBox(
+            width: widget.width,
+            height: widget.height,
 
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Configure Formcontrol Properties',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
+            child: Column(
+              children: [
+                PanelHeader(
+                  panelWidth: widget.width,
+                  title: 'Configure Formcontrol Properties',
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Label Text',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Control Name',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Control type',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Required ?',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Verification Required ?',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            'Validations',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: widget.width * 0.5,
+                        height: 25,
+
+                        child: TextField(
+                          style: TextStyle(fontSize: 12),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 8),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row(
+                  //   children: [
+                  //     Text('Label'),
+                  //   ],
+                  // ),
+                ),
+              ],
             ),
-            SizedBox(
-              width: widget.width,
-              height: 0.5,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: Colors.black.withAlpha(100)),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
 import 'package:dashboard/widgets/item_panel.dart';
 import 'package:dashboard/widgets/my_drop_region.dart';
 import 'package:dashboard/widgets/right_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplitPanel extends StatefulWidget {
   final int columns;

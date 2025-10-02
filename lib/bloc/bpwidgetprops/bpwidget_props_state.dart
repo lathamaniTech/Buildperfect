@@ -22,4 +22,9 @@ class BpwidgetPropsState extends Equatable {
       saveStatus ?? this.saveStatus,
     );
   }
+
+  factory BpwidgetPropsState.init() => BpwidgetPropsState(
+    bpwidgetProps: BpwidgetProps(label: '', controlName: '', controlType: ''),
+    SaveStatus.init,
+  );
 }
