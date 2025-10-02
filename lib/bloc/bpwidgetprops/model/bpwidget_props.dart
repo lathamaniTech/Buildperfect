@@ -1,0 +1,126 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
+import 'package:dashboard/types/ui_controls_types.dart';
+
+/*
+  @author     :   karthick.d  02/10/2025
+  @desc       :   BpWidgetProps data class for 
+                  formcontrol prperties 
+                  { String label , String controlname , String controltype, 
+                    String controlId , bool isRequired , int max  , int min
+                    String isVerificationRequired , <enum ValidationProps>[]
+*/
+
+class BpwidgetProps {
+  final String label;
+  final String controlName;
+  final String controlType;
+  final bool isRequired;
+  final int? max;
+  final int? min;
+  final bool isVerificationRequired;
+  final List<ValidationPattern>? validationPatterns;
+  BpwidgetProps({
+    required this.label,
+    required this.controlName,
+    required this.controlType,
+    this.isRequired = false,
+    this.max,
+    this.min,
+    this.isVerificationRequired = false,
+    this.validationPatterns,
+  });
+
+  BpwidgetProps copyWith({
+    String? label,
+    String? controlName,
+    String? controlType,
+    bool? isRequired,
+    int? max,
+    int? min,
+    bool? isVerificationRequired,
+    List<ValidationPattern>? validationPatterns,
+  }) {
+    return BpwidgetProps(
+      label: label ?? this.label,
+      controlName: controlName ?? this.controlName,
+      controlType: controlType ?? this.controlType,
+      isRequired: isRequired ?? this.isRequired,
+      max: max ?? this.max,
+      min: min ?? this.min,
+      isVerificationRequired:
+          isVerificationRequired ?? this.isVerificationRequired,
+      validationPatterns: validationPatterns ?? this.validationPatterns,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'label': label,
+      'controlName': controlName,
+      'controlType': controlType,
+      'isRequired': isRequired,
+      'max': max,
+      'min': min,
+      'isVerificationRequired': isVerificationRequired,
+      'validationPatterns': validationPatterns!.map((x) => x.name).toList(),
+    };
+  }
+
+  factory BpwidgetProps.fromMap(Map<String, dynamic> map) {
+    return BpwidgetProps(
+      label: map['label'] as String,
+      controlName: map['controlName'] as String,
+      controlType: map['controlType'] as String,
+      isRequired: map['isRequired'] as bool,
+      max: map['max'] != null ? map['max'] as int : null,
+      min: map['min'] != null ? map['min'] as int : null,
+      isVerificationRequired: map['isVerificationRequired'] as bool,
+      validationPatterns:
+          map['validationPatterns'] != null
+              ? List<ValidationPattern>.from(
+                (map['validationPatterns'] as List<ValidationPattern>),
+              )
+              : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory BpwidgetProps.fromJson(String source) =>
+      BpwidgetProps.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'BpwidgetProps(label: $label, controlName: $controlName, controlType: $controlType, isRequired: $isRequired, max: $max, min: $min, isVerificationRequired: $isVerificationRequired, validationPatterns: $validationPatterns)';
+  }
+
+  @override
+  bool operator ==(covariant BpwidgetProps other) {
+    if (identical(this, other)) return true;
+
+    return other.label == label &&
+        other.controlName == controlName &&
+        other.controlType == controlType &&
+        other.isRequired == isRequired &&
+        other.max == max &&
+        other.min == min &&
+        other.isVerificationRequired == isVerificationRequired &&
+        listEquals(other.validationPatterns, validationPatterns);
+  }
+
+  @override
+  int get hashCode {
+    return label.hashCode ^
+        controlName.hashCode ^
+        controlType.hashCode ^
+        isRequired.hashCode ^
+        max.hashCode ^
+        min.hashCode ^
+        isVerificationRequired.hashCode ^
+        validationPatterns.hashCode;
+  }
+}

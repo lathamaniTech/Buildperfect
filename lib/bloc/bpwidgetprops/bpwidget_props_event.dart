@@ -1,0 +1,12 @@
+/*
+  @author    :   karthick.d    02/10/2025
+  @desc      :   event class
+*/
+
+part of 'bpwidget_props_bloc.dart';
+
+abstract class BpwidgetPropsEvent {}
+
+class BPwidgetPropsInit extends BpwidgetPropsEvent {}
+
+class BPWidgetPropsSave extends BpwidgetPropsEvent {}

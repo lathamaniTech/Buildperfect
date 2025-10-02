@@ -2,7 +2,8 @@ import 'package:dashboard/types/ui_controls_types.dart';
 import 'package:flutter/material.dart';
 
 class PagePropsButtonSegment extends StatefulWidget {
-  const PagePropsButtonSegment({super.key});
+  final void Function(Set<PagePropsSegmentButton>) onSegmentChanged;
+  const PagePropsButtonSegment({super.key, required this.onSegmentChanged});
 
   @override
   State<PagePropsButtonSegment> createState() => _PagePropsButtonSegmentState();
@@ -45,7 +46,7 @@ class _PagePropsButtonSegmentState extends State<PagePropsButtonSegment> {
       ),
       onSelectionChanged: (p0) {
         selectedSegmentButton = p0;
-
+        widget.onSegmentChanged(p0);
         setState(() {});
       },
       emptySelectionAllowed: true,

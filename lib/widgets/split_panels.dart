@@ -139,7 +139,10 @@ class _SplitPanelState extends State<SplitPanel> {
                   right: 0,
                   child: DecoratedBox(
                     decoration: BoxDecoration(color: Colors.pink.shade100),
-                    child: RightPanel(),
+                    child: RightPanel(
+                      width: rightPanelWidth,
+                      height: constraints.maxHeight,
+                    ),
                   ),
                 ),
               ],
