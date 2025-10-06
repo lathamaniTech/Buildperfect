@@ -1,3 +1,7 @@
+/*
+    @auth     : karthick.d    06/10/2025
+    @desc     : parent container for all the three panel
+*/
 import 'dart:math';
 
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';

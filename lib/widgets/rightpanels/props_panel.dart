@@ -1,4 +1,5 @@
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
+import 'package:dashboard/widgets/customcontrols/key_value_dropdown.dart';
 import 'package:dashboard/widgets/customcontrols/key_value_textbox.dart';
 import 'package:dashboard/widgets/rightpanels/panel_header.dart';
 import 'package:flutter/material.dart';
@@ -54,16 +55,27 @@ class _PropsPanelState extends State<PropsPanel> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: KeyValueTextbox(
+                  child: KeyValueDropdown(
                     width: widget.width,
                     labeltext: 'Required ?',
+                    dropdownEntries: <DropdownMenuEntry>[
+                      DropdownMenuEntry(value: 'true', label: 'true'),
+                      DropdownMenuEntry(value: 'false', label: 'false'),
+                    ],
+                    onSelected: (value) {
+                      print('required ? => $value');
+                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: KeyValueTextbox(
+                  child: KeyValueDropdown(
                     width: widget.width,
-                    labeltext: 'Verification Required?',
+                    labeltext: 'Verification Required ?',
+                    dropdownEntries: <DropdownMenuEntry>[
+                      DropdownMenuEntry(value: 'true', label: 'true'),
+                      DropdownMenuEntry(value: 'false', label: 'false'),
+                    ],
                   ),
                 ),
                 Padding(
