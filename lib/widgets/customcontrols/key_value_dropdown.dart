@@ -1,3 +1,10 @@
+/*
+  @author   : karthick.d  06/10/2025
+  @desc     : custom standard widget for dropdown control
+              use this widget in place of flutter dropdown
+              customized for consistant look and feel
+              across the application
+*/
 import 'package:flutter/material.dart';
 
 class KeyValueDropdown extends StatefulWidget {

@@ -1,3 +1,10 @@
+/*
+  @author   : karthick.d  06/10/2025
+  @desc     : custom standard widget for textbox control
+              use this widget in place of flutter textfield
+              customized for consistant look and feel
+              across the application
+*/
 import 'package:flutter/material.dart';
 
 class KeyValueTextbox extends StatefulWidget {

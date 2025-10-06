@@ -82,7 +82,38 @@ class _PropsPanelState extends State<PropsPanel> {
                   padding: const EdgeInsets.all(8),
                   child: KeyValueTextbox(
                     width: widget.width,
+                    labeltext: 'Minlength',
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: KeyValueTextbox(
+                    width: widget.width,
+                    labeltext: 'Maxlength',
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: KeyValueDropdown(
+                    dropdownEntries: <DropdownMenuEntry>[
+                      DropdownMenuEntry(value: 'email', label: 'Email'),
+                      DropdownMenuEntry(value: 'phone', label: 'Phone'),
+                      DropdownMenuEntry(value: 'pan', label: 'PAN'),
+                      DropdownMenuEntry(value: 'aadhaar', label: 'Aadhaar'),
+
+                      DropdownMenuEntry(value: 'dl', label: 'DL'),
+                      DropdownMenuEntry(value: 'voterid', label: 'Voter ID'),
+                      DropdownMenuEntry(value: 'passport', label: 'Passport'),
+
+                      DropdownMenuEntry(value: 'gst', label: 'GST'),
+                      DropdownMenuEntry(value: 'upi', label: 'UPI ID'),
+                    ],
+                    width: widget.width,
                     labeltext: 'Validations',
+                    onSelected: (value) {
+                      print(value);
+                    },
                   ),
                 ),
               ],
