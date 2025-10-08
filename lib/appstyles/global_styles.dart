@@ -18,5 +18,5 @@ class GlobalStyles {
     color: Colors.teal,
   );
 
-  static SizedBox fillerSizedBox20 = SizedBox(width: 20);
+  static SizedBox fillerSizedBox50 = SizedBox(width: 50);
 }
