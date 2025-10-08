@@ -68,22 +68,46 @@ class _ItemsPanelState extends State<ItemPanel> {
           setState(() {});
         },
         labelText: 'label ${index + 1}',
-        child: TextField(
-          enabled: false, // enabled: selectedIndex == index ? true : false,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Textbox',
-            label: Text('TextField'),
-            floatingLabelStyle: TextStyle(fontSize: 14),
-
-            disabledBorder:
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
                 selectedIndex == index
-                    ? OutlineInputBorder(
-                      borderSide: GlobalStyles.selectedBorderStyle,
-                    )
-                    : OutlineInputBorder(
-                      borderSide: GlobalStyles.unselectedBorderStyle,
-                    ),
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  enabled:
+                      false, // enabled: selectedIndex == index ? true : false,
+                  decoration: InputDecoration(
+                    // border: OutlineInputBorder(
+                    //   borderSide: BorderSide(color: Colors.transparent),
+                    // ),
+                    hintText: 'Textbox',
+                    label: Text('TextField'),
+                    floatingLabelStyle: TextStyle(fontSize: 14),
+
+                    // disabledBorder:
+                    //     selectedIndex == index
+                    //         ? OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(10),
+                    //           borderSide: GlobalStyles.selectedBorderStyle,
+                    //         )
+                    //         : OutlineInputBorder(
+                    //           borderSide: GlobalStyles.unselectedBorderStyle,
+                    //         ),
+                  ),
+                ),
+              ),
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox20,
+            ],
           ),
         ),
       ),
@@ -98,20 +122,45 @@ class _ItemsPanelState extends State<ItemPanel> {
           setState(() {});
         },
         labelText: 'label ${index + 1}',
-        child: DropdownMenu(
-          dropdownMenuEntries: [],
-          enabled: false,
-          hintText: 'DropDownField',
-          width: 300,
-          inputDecorationTheme: InputDecorationTheme(
-            disabledBorder:
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
                 selectedIndex == index
-                    ? OutlineInputBorder(
-                      borderSide: GlobalStyles.selectedBorderStyle,
-                    )
-                    : OutlineInputBorder(
-                      borderSide: GlobalStyles.unselectedBorderStyle,
-                    ),
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+            children: [
+              SizedBox(
+                width: 300,
+                child: DropdownMenu(
+                  dropdownMenuEntries: [],
+                  enabled: false,
+                  hintText: 'DropDownField',
+                  width: 300,
+                  inputDecorationTheme: InputDecorationTheme(
+                    disabledBorder: InputBorder.none,
+                  ),
+                  // inputDecorationTheme: InputDecorationTheme(
+                  //   disabledBorder:
+                  //       selectedIndex == index
+                  //           ? OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(10),
+                  //             borderSide: GlobalStyles.selectedBorderStyle,
+                  //           )
+                  //           : OutlineInputBorder(
+                  //             borderSide: GlobalStyles.unselectedBorderStyle,
+                  //           ),
+                  // ),
+                ),
+              ),
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox20,
+            ],
           ),
         ),
       ),
@@ -127,19 +176,35 @@ class _ItemsPanelState extends State<ItemPanel> {
         },
 
         labelText: 'label ${index + 1}',
-        child: DottedBorder(
-          options: RectDottedBorderOptions(
-            dashPattern: [10, 10],
-            color: selectedIndex == index ? Colors.teal : Colors.transparent,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
+                selectedIndex == index
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
             children: [
-              Checkbox(
-                value: true,
-                onChanged: (value) {},
-                semanticLabel: 'Checkbox',
+              SizedBox(
+                width: 200,
+                height: 70,
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: true,
+                      onChanged: (value) {},
+                      semanticLabel: 'Checkbox',
+                    ),
+                    Text('Checkbox'),
+                  ],
+                ),
               ),
-              Text('Checkbox'),
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox20,
             ],
           ),
         ),
