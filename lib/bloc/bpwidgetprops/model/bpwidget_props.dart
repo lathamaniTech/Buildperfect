@@ -23,6 +23,7 @@ class BpwidgetProps {
   final String? min;
   final String isVerificationRequired;
   final String? validationPatterns;
+
   BpwidgetProps({
     required this.label,
     required this.controlName,

@@ -9,6 +9,8 @@ import 'dart:math';
 
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
+import 'package:dashboard/bloc/bpwidgets/bpwidget_bloc.dart';
+import 'package:dashboard/bloc/bpwidgets/model/bpwidget.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
 import 'package:dashboard/widgets/item_panel.dart';
 import 'package:dashboard/widgets/my_drop_region.dart';
@@ -26,8 +28,11 @@ class SplitPanel extends StatefulWidget {
 }
 
 class _SplitPanelState extends State<SplitPanel> {
-  final List<PlaceholderWidgets> upper = [];
-  final List<PlaceholderWidgets> lower = [
+  /// Todo1 : CREATE COLLECTION OF BPWIDGET
+
+  final List<PlaceholderWidgets> _upper = [];
+  List<BPWidget> upper = [];
+  final List<PlaceholderWidgets> _lower = [
     PlaceholderWidgets.Textfield,
     PlaceholderWidgets.Dropdown,
     PlaceholderWidgets.Checkbox,
@@ -36,10 +41,61 @@ class _SplitPanelState extends State<SplitPanel> {
     PlaceholderWidgets.Label,
   ];
 
+  final List<BPWidget> lower = [
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Textfield.name,
+      ),
+      widgetType: PlaceholderWidgets.Textfield,
+    ),
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Dropdown.name,
+      ),
+      widgetType: PlaceholderWidgets.Dropdown,
+    ),
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Checkbox.name,
+      ),
+      widgetType: PlaceholderWidgets.Checkbox,
+    ),
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Radio.name,
+      ),
+      widgetType: PlaceholderWidgets.Radio,
+    ),
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Button.name,
+      ),
+      widgetType: PlaceholderWidgets.Button,
+    ),
+    BPWidget(
+      bpwidgetProps: BpwidgetProps(
+        label: '',
+        controlName: '',
+        controlType: PlaceholderWidgets.Label.name,
+      ),
+      widgetType: PlaceholderWidgets.Label,
+    ),
+  ];
+
   PanelLocation dragStart = (-1, Panel.lower);
   PanelLocation? dropPreview;
 
-  PlaceholderWidgets? hoveringData;
+  BPWidget? hoveringData;
   BpwidgetProps selectedWidget = BpwidgetProps(
     label: '',
     controlName: '',
@@ -80,101 +136,114 @@ class _SplitPanelState extends State<SplitPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('BuildPerfect'), elevation: 2),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          final gutter = widget.columns + 1;
-          final spaceForColumns =
-              constraints.maxWidth - (widget.itemSpacing * gutter);
-          final columnWidth = spaceForColumns / widget.columns;
-          final itemSize = Size(columnWidth, columnWidth);
-          final leftPanelWidth = constraints.maxWidth / 4;
-          final centerPanelWidth = constraints.maxWidth / 2;
-          final rightPanelWidth =
-              constraints.maxWidth - (leftPanelWidth + centerPanelWidth);
-          return Padding(
-            padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-            child: Stack(
-              children: [
-                Positioned(
-                  // for draggable component
-                  width: leftPanelWidth - 100,
-                  height: constraints.maxHeight,
-                  left: 0,
-                  child: MyDropRegion(
-                    onDrop: drop,
-                    updateDropPreview: updateDropPreview,
-                    childSize: itemSize,
-                    columns: widget.columns,
-                    panel: Panel.lower,
+    return BlocConsumer<BpwidgetBloc, BpwidgetState>(
+      listener: (context, state) {
+        print(
+          'inside splitpanel builder method => ${state.bpWidgetsList?.length} ${state.bpWidgetsList![0].bpwidgetProps}',
+        );
+        upper = state.bpWidgetsList!;
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(state.bpWidgetsList![0].widgetType.name),
+            elevation: 2,
+          ),
+          body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              final gutter = widget.columns + 1;
+              final spaceForColumns =
+                  constraints.maxWidth - (widget.itemSpacing * gutter);
+              final columnWidth = spaceForColumns / widget.columns;
+              final itemSize = Size(columnWidth, columnWidth);
+              final leftPanelWidth = constraints.maxWidth / 4;
+              final centerPanelWidth = constraints.maxWidth / 2;
+              final rightPanelWidth =
+                  constraints.maxWidth - (leftPanelWidth + centerPanelWidth);
+              return Padding(
+                padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      // for draggable component
+                      width: leftPanelWidth - 100,
+                      height: constraints.maxHeight,
+                      left: 0,
+                      child: MyDropRegion(
+                        onDrop: drop,
+                        updateDropPreview: updateDropPreview,
+                        childSize: itemSize,
+                        columns: widget.columns,
+                        panel: Panel.lower,
 
-                    child: ItemPanel(
-                      crossAxisCount: widget.columns,
-                      spacing: widget.itemSpacing,
-                      items: lower,
-                      onDragStart: onItemDragStart,
-                      panel: Panel.lower,
-                      dragStart: dragStart,
-                      dropPreview: dropPreview,
-                      hoveringData: hoveringData,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  width: 2,
-                  height: constraints.maxHeight,
-                  left: leftPanelWidth,
-                  child: ColoredBox(color: Colors.black),
-                ),
-                Positioned(
-                  // centerpanel for dragtarget
-                  width: centerPanelWidth,
-                  height: constraints.maxHeight,
-                  left: leftPanelWidth,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.blue.shade300),
-                    child: MyDropRegion(
-                      onDrop: drop,
-                      updateDropPreview: updateDropPreview,
-                      childSize: itemSize,
-                      columns: widget.columns,
-                      panel: Panel.upper,
-                      child: ItemPanel(
-                        crossAxisCount: widget.columns,
-                        spacing: widget.itemSpacing,
-                        items: upper,
-                        onDragStart: onItemDragStart,
-                        panel: Panel.upper,
-                        dragStart: dragStart,
-                        dropPreview: dropPreview,
-                        hoveringData: hoveringData,
-                        onItemClicked: onItemClickRef,
+                        child: ItemPanel(
+                          crossAxisCount: widget.columns,
+                          spacing: widget.itemSpacing,
+                          items: lower,
+                          onDragStart: onItemDragStart,
+                          panel: Panel.lower,
+                          dragStart: dragStart,
+                          dropPreview: dropPreview,
+                          hoveringData: hoveringData,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                Positioned(
-                  width: rightPanelWidth,
-                  height: constraints.maxHeight,
-                  right: 0,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.pink.shade100),
-
-                    /// RightPanel - is parent model for props , action and
-                    /// datasource panel
-                    child: RightPanel(
+                    Positioned(
+                      width: 2,
+                      height: constraints.maxHeight,
+                      left: leftPanelWidth,
+                      child: ColoredBox(color: Colors.black),
+                    ),
+                    Positioned(
+                      // centerpanel for dragtarget
+                      width: centerPanelWidth,
+                      height: constraints.maxHeight,
+                      left: leftPanelWidth,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.blue.shade300),
+                        child: MyDropRegion(
+                          onDrop: drop,
+                          updateDropPreview: updateDropPreview,
+                          childSize: itemSize,
+                          columns: widget.columns,
+                          panel: Panel.upper,
+                          child: ItemPanel(
+                            crossAxisCount: widget.columns,
+                            spacing: widget.itemSpacing,
+                            items: upper,
+                            onDragStart: onItemDragStart,
+                            panel: Panel.upper,
+                            dragStart: dragStart,
+                            dropPreview: dropPreview,
+                            hoveringData: hoveringData,
+                            onItemClicked: onItemClickRef,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
                       width: rightPanelWidth,
                       height: constraints.maxHeight,
-                      props: selectedWidget,
+                      right: 0,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.pink.shade100),
+
+                        /// RightPanel - is parent model for props , action and
+                        /// datasource panel
+                        child: RightPanel(
+                          width: rightPanelWidth,
+                          height: constraints.maxHeight,
+                          props: selectedWidget,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
