@@ -211,17 +211,50 @@ class _ItemsPanelState extends State<ItemPanel> {
         ),
       ),
       PlaceholderWidgets.Radio => DraggedHolder(
+        onTapDraggedControl: () {
+          selectedIndex = index;
+
+          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
+            widget.items[selectedIndex],
+          );
+          widget.onItemClicked!(bpWidgetPropsObj);
+          setState(() {});
+        },
         labelText: 'label ${index + 1}',
-        child: Row(
-          children: [
-            Radio(
-              toggleable: false,
-              value: '',
-              groupValue: '',
-              onChanged: (value) {},
-            ),
-            Text('Radio'),
-          ],
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
+                selectedIndex == index
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+            children: [
+              SizedBox(
+                width: 200,
+                height: 70,
+
+                child: Row(
+                  children: [
+                    Radio(
+                      toggleable: false,
+                      value: '',
+                      groupValue: '',
+                      onChanged: (value) {},
+                    ),
+                    Text('Radio'),
+                  ],
+                ),
+              ),
+              GlobalStyles.fillerSizedBox50,
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox50,
+            ],
+          ),
         ),
       ),
       PlaceholderWidgets.Button => Row(

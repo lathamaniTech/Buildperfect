@@ -41,10 +41,13 @@ class _PropsPanelState extends State<PropsPanel> {
       listener: (context, state) {},
       builder: (context, state) {
         print('PropsPanel => ${state.bpwidgetProps}');
-        bpWidgetPropsForm.controls['label']?.updateValue(widget.props!.label);
+        bpWidgetPropsForm.controls['label']?.updateValue(
+          state.bpwidgetProps.label != null || state.bpwidgetProps.label != ''
+              ? state.bpwidgetProps.label
+              : widget.props!.label,
+        );
         bpWidgetPropsForm.controls['controlName']?.updateValue(
-          state.bpwidgetProps.controlName +
-              bpWidgetPropsForm.controls["label"]!.value.toString(),
+          state.bpwidgetProps.controlName,
         );
         bpWidgetPropsForm.controls['controlType']?.updateValue(
           widget.props!.controlType,
@@ -93,7 +96,7 @@ class _PropsPanelState extends State<PropsPanel> {
                     child: KeyValueReactiveDropdown(
                       width: widget.width,
                       labeltext: 'Required ?',
-                      dropdownEntries: ['true', 'false'],
+                      dropdownEntries: ["true", "false"],
                       onSelected: (value) {
                         print('required ? => $value');
                       },
@@ -140,12 +143,37 @@ class _PropsPanelState extends State<PropsPanel> {
                         'Passport',
                         'GST',
                         'UPI',
+                        'None',
                       ],
                       width: widget.width,
                       labeltext: 'Validations',
                       onSelected: (value) {
                         print(value);
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            print(
+                              'bpWidgetPropsForm.value => ${bpWidgetPropsForm.value}',
+                            );
+                            context.read<BpwidgetPropsBloc>().add(
+                              BPWidgetPropsSave(
+                                props: BpwidgetProps.fromMap(
+                                  bpWidgetPropsForm.value,
+                                ),
+                              ),
+                            );
+                          },
+                          label: Text('save'),
+                          icon: Icon(Icons.save),
+                        ),
+                      ],
                     ),
                   ),
                 ],
