@@ -64,9 +64,6 @@ class _ItemsPanelState extends State<ItemPanel> {
           ///
           selectedIndex = index;
 
-          // BpwidgetProps bpWidgetPropsObj = getWidgetProps(
-          //   widget.items[selectedIndex].widgetType,
-          // );
           BpwidgetProps bpWidgetPropsObj = props;
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
@@ -89,22 +86,9 @@ class _ItemsPanelState extends State<ItemPanel> {
                   enabled:
                       false, // enabled: selectedIndex == index ? true : false,
                   decoration: InputDecoration(
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.transparent),
-                    // ),
                     hintText: 'Textbox',
                     label: Text('TextField'),
                     floatingLabelStyle: TextStyle(fontSize: 14),
-
-                    // disabledBorder:
-                    //     selectedIndex == index
-                    //         ? OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(10),
-                    //           borderSide: GlobalStyles.selectedBorderStyle,
-                    //         )
-                    //         : OutlineInputBorder(
-                    //           borderSide: GlobalStyles.unselectedBorderStyle,
-                    //         ),
                   ),
                 ),
               ),
@@ -123,7 +107,7 @@ class _ItemsPanelState extends State<ItemPanel> {
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
-        labelText: 'label ${index + 1}',
+        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -146,17 +130,6 @@ class _ItemsPanelState extends State<ItemPanel> {
                   inputDecorationTheme: InputDecorationTheme(
                     disabledBorder: InputBorder.none,
                   ),
-                  // inputDecorationTheme: InputDecorationTheme(
-                  //   disabledBorder:
-                  //       selectedIndex == index
-                  //           ? OutlineInputBorder(
-                  //             borderRadius: BorderRadius.circular(10),
-                  //             borderSide: GlobalStyles.selectedBorderStyle,
-                  //           )
-                  //           : OutlineInputBorder(
-                  //             borderSide: GlobalStyles.unselectedBorderStyle,
-                  //           ),
-                  // ),
                 ),
               ),
               selectedIndex == index
@@ -365,40 +338,5 @@ class _ItemsPanelState extends State<ItemPanel> {
             }).toList(),
       );
     }
-  }
-
-  BpwidgetProps getWidgetProps(PlaceholderWidgets wdg) {
-    return switch (wdg) {
-      PlaceholderWidgets.Textfield => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Textbox',
-      ),
-      PlaceholderWidgets.Dropdown => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Dropdown',
-      ),
-      PlaceholderWidgets.Checkbox => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Checkbox',
-      ),
-      PlaceholderWidgets.Radio => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Radio',
-      ),
-      PlaceholderWidgets.Button => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Button',
-      ),
-      PlaceholderWidgets.Label => BpwidgetProps(
-        label: 'label ${selectedIndex + 1}',
-        controlName: 'page1_',
-        controlType: 'Textfield',
-      ),
-    };
   }
 }

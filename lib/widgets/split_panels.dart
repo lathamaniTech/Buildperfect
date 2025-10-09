@@ -7,6 +7,7 @@
 */
 import 'dart:math';
 
+import 'package:dashboard/appdata/page/page_global_constants.dart';
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/bloc/bpwidgets/bpwidget_bloc.dart';
@@ -29,19 +30,8 @@ class SplitPanel extends StatefulWidget {
 }
 
 class _SplitPanelState extends State<SplitPanel> {
-  /// Todo1 : CREATE COLLECTION OF BPWIDGET
-
-  final List<PlaceholderWidgets> _upper = [];
+  final bpController = BPPageController.loadNPages(5);
   List<BPWidget> upper = [];
-  final List<PlaceholderWidgets> _lower = [
-    PlaceholderWidgets.Textfield,
-    PlaceholderWidgets.Dropdown,
-    PlaceholderWidgets.Checkbox,
-    PlaceholderWidgets.Radio,
-    PlaceholderWidgets.Button,
-    PlaceholderWidgets.Label,
-  ];
-
   final List<BPWidget> lower = [
     BPWidget(
       bpwidgetProps: BpwidgetProps(
@@ -129,28 +119,19 @@ class _SplitPanelState extends State<SplitPanel> {
     setState(() {
       if (dropPreview!.$2 == Panel.upper) {
         final uniqueID = MathUtils.generateUniqueID();
-        print('uniqueID => $uniqueID');
-
+        // print('onDrop => ${lower[dropPreview!.$1].bpwidgetProps}');
+        print('hoveringData!.widgetType => ${hoveringData!.widgetType.name}');
         hoveringData = BPWidget(
           widgetType: hoveringData!.widgetType,
           id: uniqueID,
           bpwidgetProps: BpwidgetProps(
             label: '',
-            controlName: '',
-            controlType: '',
+            controlName:
+                '${bpController.pagesRegistry.entries.first.value.pageName}_',
+            controlType: hoveringData!.widgetType.name,
             id: uniqueID,
           ),
         );
-
-        // hoveringData!.copyWith(
-        //   id: uniqueID,
-        //   bpwidgetProps: BpwidgetProps(
-        //     label: '',
-        //     controlName: '',
-        //     controlType: '',
-        //     id: uniqueID,
-        //   ),
-        // );
 
         print('hoveringData => ${hoveringData!.id}');
         upper.insert(max(dropPreview!.$1, upper.length), hoveringData!);
@@ -159,7 +140,7 @@ class _SplitPanelState extends State<SplitPanel> {
   }
 
   void onItemClickRef(BpwidgetProps widget) {
-    print('onItemClickRef => ${widget.id}');
+    print('onItemClickRef => ${widget}');
     selectedWidget = widget;
     setState(() {});
   }
@@ -202,11 +183,12 @@ class _SplitPanelState extends State<SplitPanel> {
         }
       },
       builder: (context, state) {
+        print(
+          'total pages => ${bpController.pagesRegistry.entries.first.value.pageName}',
+        );
+
         return Scaffold(
-          appBar: AppBar(
-            title: Text(state.bpWidgetsList![0].widgetType.name),
-            elevation: 2,
-          ),
+          appBar: AppBar(title: Text('BuildPerfect'), elevation: 2),
           body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               final gutter = widget.columns + 1;
