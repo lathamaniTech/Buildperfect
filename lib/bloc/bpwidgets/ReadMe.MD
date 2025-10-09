@@ -5,4 +5,4 @@
         - BPWidgetAction
         - BpWidgetDataSource
 
-    BpWidgetCollection
+final List<BpWidget>bpWidgetCollection
