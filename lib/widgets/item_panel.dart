@@ -10,8 +10,8 @@ import 'package:dashboard/appstyles/global_styles.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
 import 'package:dashboard/widgets/containers/dragged_holder.dart';
+import 'package:dashboard/widgets/currency_field.dart';
 import 'package:dashboard/widgets/my_draggable_widget.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class ItemPanel extends StatefulWidget {
@@ -262,6 +262,24 @@ class _ItemsPanelState extends State<ItemPanel> {
         children: [ElevatedButton(onPressed: () {}, child: Text('Save'))],
       ),
       PlaceholderWidgets.Label => Text('label ${index + 1}'),
+      PlaceholderWidgets.Currency => DraggedHolder(
+        onTapDraggedControl: () {
+          selectedIndex = index;
+          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
+            widget.items[selectedIndex],
+          );
+          widget.onItemClicked!(bpWidgetPropsObj);
+          setState(() {});
+        },
+        labelText: 'label ${index + 1}',
+        child: CurrencyField(
+          enabled: false,
+          selectedIndex: selectedIndex,
+          index: index,
+          lable: 'Currency',
+          hintText: 'Enter Amount',
+        ),
+      ),
     };
   }
 
@@ -280,6 +298,7 @@ class _ItemsPanelState extends State<ItemPanel> {
       ),
       PlaceholderWidgets.Button => Icon(Icons.touch_app, color: Colors.white),
       PlaceholderWidgets.Label => Icon(Icons.label, color: Colors.white),
+      PlaceholderWidgets.Currency => Icon(Icons.label, color: Colors.white),
     };
   }
 
@@ -347,14 +366,14 @@ class _ItemsPanelState extends State<ItemPanel> {
                   ),
                 ),
               );
-              return Draggable(
-                feedback: child,
-                child: MyDraggableWidget(
-                  data: e.value.name,
-                  onDragStart: () => widget.onDragStart((e.key, widget.panel)),
-                  child: child,
-                ),
+              // return Draggable(
+              //   feedback: child,
+              return MyDraggableWidget(
+                data: e.value.name,
+                onDragStart: () => widget.onDragStart((e.key, widget.panel)),
+                child: child,
               );
+              // );
             }).toList(),
       );
     }
@@ -388,6 +407,11 @@ class _ItemsPanelState extends State<ItemPanel> {
         controlType: 'Button',
       ),
       PlaceholderWidgets.Label => BpwidgetProps(
+        label: 'label ${selectedIndex + 1}',
+        controlName: 'page1_',
+        controlType: 'Textfield',
+      ),
+      PlaceholderWidgets.Currency => BpwidgetProps(
         label: 'label ${selectedIndex + 1}',
         controlName: 'page1_',
         controlType: 'Textfield',

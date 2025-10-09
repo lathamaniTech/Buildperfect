@@ -34,6 +34,7 @@ class _SplitPanelState extends State<SplitPanel> {
     PlaceholderWidgets.Radio,
     PlaceholderWidgets.Button,
     PlaceholderWidgets.Label,
+    PlaceholderWidgets.Currency,
   ];
 
   PanelLocation dragStart = (-1, Panel.lower);
@@ -75,6 +76,7 @@ class _SplitPanelState extends State<SplitPanel> {
 
   void onItemClickRef(BpwidgetProps widget) {
     selectedWidget = widget;
+    context.read<BpwidgetPropsBloc>().add(BPWidgetPropsSave(props: widget));
     setState(() {});
   }
 

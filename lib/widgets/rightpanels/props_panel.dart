@@ -1,10 +1,8 @@
 import 'package:dashboard/appdata/forms/bpwidget_forms.dart';
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
-import 'package:dashboard/widgets/customcontrols/key_value_dropdown.dart';
 import 'package:dashboard/widgets/customcontrols/key_value_reactive_dropdown.dart';
 import 'package:dashboard/widgets/customcontrols/key_value_reactive_textbox.dart';
-import 'package:dashboard/widgets/customcontrols/key_value_textbox.dart';
 import 'package:dashboard/widgets/rightpanels/panel_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
