@@ -3,7 +3,7 @@
     @desc     : parent container for all the three panel
                 split_panel - keep the list of BPWidgt which app
                   items_panel
-
+                
 */
 import 'dart:math';
 
@@ -30,6 +30,10 @@ class SplitPanel extends StatefulWidget {
 }
 
 class _SplitPanelState extends State<SplitPanel> {
+  /// BPPageController named constructor BPPageController.loadNPages(5)
+  ///  to create pages on the fly , the created pages will be loaded in
+  ///  the left panel -> pages panel where user can select pages to configure
+  /// BPWidgets
   final bpController = BPPageController.loadNPages(5);
   List<BPWidget> upper = [];
   final List<BPWidget> lower = [
