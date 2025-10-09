@@ -309,9 +309,8 @@ class _ItemsPanelState extends State<ItemPanel> {
   @override
   Widget build(BuildContext context) {
     /// have a copy of dragstartCopy to keep the local copy
-    /// so
     final itemsCopy = List<BPWidget>.from(widget.items);
-    print('itemscopy => $itemsCopy');
+    // print('itemscopy => $itemsCopy');
     if (widget.panel == Panel.upper) {
       return ListView(
         padding: const EdgeInsets.all(4),

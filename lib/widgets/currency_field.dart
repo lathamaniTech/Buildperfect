@@ -2,6 +2,7 @@ import 'package:dashboard/appstyles/global_styles.dart';
 import 'package:dashboard/widgets/rupeeformatter.dart';
 import 'package:flutter/material.dart';
 
+// currency field widget
 class CurrencyField extends StatefulWidget {
   final bool? enabled;
   final String? hintText;
