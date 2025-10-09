@@ -1,7 +1,7 @@
 /*
     @auth     : karthick.d    06/10/2025
     @desc     : parent container for all the three panel
-                split_panel
+                split_panel - keep the list of BPWidgt which app
                   items_panel
 
 */
@@ -12,6 +12,7 @@ import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/bloc/bpwidgets/bpwidget_bloc.dart';
 import 'package:dashboard/bloc/bpwidgets/model/bpwidget.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
+import 'package:dashboard/utils/math_utils.dart';
 import 'package:dashboard/widgets/item_panel.dart';
 import 'package:dashboard/widgets/my_drop_region.dart';
 import 'package:dashboard/widgets/right_panel.dart';
@@ -121,15 +122,44 @@ class _SplitPanelState extends State<SplitPanel> {
     dropPreview = update;
   });
 
+  /// this function invoked when the formcontrol widget dragged and dropped to
+  /// central panel , unique id is assigned to id property of BPWidgetProps
+  ///
   void drop() {
     setState(() {
       if (dropPreview!.$2 == Panel.upper) {
+        final uniqueID = MathUtils.generateUniqueID();
+        print('uniqueID => $uniqueID');
+
+        hoveringData = BPWidget(
+          widgetType: hoveringData!.widgetType,
+          id: uniqueID,
+          bpwidgetProps: BpwidgetProps(
+            label: '',
+            controlName: '',
+            controlType: '',
+            id: uniqueID,
+          ),
+        );
+
+        // hoveringData!.copyWith(
+        //   id: uniqueID,
+        //   bpwidgetProps: BpwidgetProps(
+        //     label: '',
+        //     controlName: '',
+        //     controlType: '',
+        //     id: uniqueID,
+        //   ),
+        // );
+
+        print('hoveringData => ${hoveringData!.id}');
         upper.insert(max(dropPreview!.$1, upper.length), hoveringData!);
       }
     });
   }
 
   void onItemClickRef(BpwidgetProps widget) {
+    print('onItemClickRef => ${widget.id}');
     selectedWidget = widget;
     setState(() {});
   }
@@ -137,11 +167,39 @@ class _SplitPanelState extends State<SplitPanel> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BpwidgetBloc, BpwidgetState>(
+      /// listener method will be invoked when ever the BPWidgetState objet
+      /// changes . in our case whenever we are adding the Bpwidgets in
+      /// List<BpWidgets>
       listener: (context, state) {
         print(
           'inside splitpanel builder method => ${state.bpWidgetsList?.length} ${state.bpWidgetsList![0].bpwidgetProps}',
         );
-        upper = state.bpWidgetsList!;
+
+        final upperFiltered = upper.where((u) {
+          return u.id == state.bpWidgetsList![0].bpwidgetProps!.id;
+        });
+        final indexOfSelectedBpWidget = upper.indexOf(upperFiltered.first);
+        if (indexOfSelectedBpWidget != -1) {
+          BPWidget _upper = upperFiltered.first;
+
+          _upper.bpwidgetProps = _upper.bpwidgetProps!.copyWith(
+            controlName: state.bpWidgetsList![0].bpwidgetProps!.controlName,
+            label: state.bpWidgetsList![0].bpwidgetProps!.label,
+            controlType: state.bpWidgetsList![0].bpwidgetProps!.controlType,
+            isRequired: state.bpWidgetsList![0].bpwidgetProps!.isRequired,
+            isVerificationRequired:
+                state.bpWidgetsList![0].bpwidgetProps!.isVerificationRequired,
+            max: state.bpWidgetsList![0].bpwidgetProps!.max,
+            min: state.bpWidgetsList![0].bpwidgetProps!.min,
+            validationPatterns:
+                state.bpWidgetsList![0].bpwidgetProps!.validationPatterns,
+            id: state.bpWidgetsList![0].bpwidgetProps!.id,
+          );
+          print(_upper.bpwidgetProps!.label);
+          // _upper.copyWith(bpwidgetProps: state.bpWidgetsList![0].bpwidgetProps);
+          upper[indexOfSelectedBpWidget] = _upper;
+          print(upper[0].bpwidgetProps!.label);
+        }
       },
       builder: (context, state) {
         return Scaffold(

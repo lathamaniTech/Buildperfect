@@ -23,7 +23,7 @@ class BpwidgetProps {
   final String? min;
   final String isVerificationRequired;
   final String? validationPatterns;
-
+  final String? id;
   BpwidgetProps({
     required this.label,
     required this.controlName,
@@ -33,6 +33,7 @@ class BpwidgetProps {
     this.min,
     this.isVerificationRequired = "false",
     this.validationPatterns,
+    this.id,
   });
 
   BpwidgetProps copyWith({
@@ -44,6 +45,7 @@ class BpwidgetProps {
     String? min,
     String? isVerificationRequired,
     String? validationPatterns,
+    String? id,
   }) {
     return BpwidgetProps(
       label: label ?? this.label,
@@ -55,6 +57,7 @@ class BpwidgetProps {
       isVerificationRequired:
           isVerificationRequired ?? this.isVerificationRequired,
       validationPatterns: validationPatterns ?? this.validationPatterns,
+      id: id ?? this.id,
     );
   }
 
@@ -68,6 +71,7 @@ class BpwidgetProps {
       'min': min,
       'isVerificationRequired': isVerificationRequired,
       'validationPatterns': validationPatterns,
+      'id': id,
     };
   }
 
@@ -84,6 +88,7 @@ class BpwidgetProps {
           map['validationPatterns'] != null
               ? map['validationPatterns'] as String
               : null,
+      id: map['id'] != null ? map['id'] as String : null,
     );
   }
 
@@ -94,7 +99,7 @@ class BpwidgetProps {
 
   @override
   String toString() {
-    return 'BpwidgetProps(label: $label, controlName: $controlName, controlType: $controlType, isRequired: $isRequired, max: $max, min: $min, isVerificationRequired: $isVerificationRequired, validationPatterns: $validationPatterns)';
+    return 'BpwidgetProps(label: $label, controlName: $controlName, controlType: $controlType, isRequired: $isRequired, max: $max, min: $min, isVerificationRequired: $isVerificationRequired, validationPatterns: $validationPatterns, id: $id)';
   }
 
   @override
@@ -108,7 +113,8 @@ class BpwidgetProps {
         other.max == max &&
         other.min == min &&
         other.isVerificationRequired == isVerificationRequired &&
-        other.validationPatterns == validationPatterns;
+        other.validationPatterns == validationPatterns &&
+        other.id == id;
   }
 
   @override
@@ -120,6 +126,7 @@ class BpwidgetProps {
         max.hashCode ^
         min.hashCode ^
         isVerificationRequired.hashCode ^
-        validationPatterns.hashCode;
+        validationPatterns.hashCode ^
+        id.hashCode;
   }
 }

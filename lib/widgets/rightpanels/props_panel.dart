@@ -55,7 +55,8 @@ class _PropsPanelState extends State<PropsPanel> {
         }
       },
       builder: (context, state) {
-        print('PropsPanel => ${state.bpwidgetProps}');
+        print('PropsPanel => ${widget.props}');
+
         bpWidgetPropsForm.controls['label']?.updateValue(
           state.bpwidgetProps.label != null || state.bpwidgetProps.label != ''
               ? state.bpwidgetProps.label
@@ -177,11 +178,13 @@ class _PropsPanelState extends State<PropsPanel> {
                             print(
                               'bpWidgetPropsForm.value => ${bpWidgetPropsForm.value}',
                             );
+                            // BpwidgetProps.fromMap({...bpWidgetPropsForm.value,'id':widget.props!.id});
                             context.read<BpwidgetPropsBloc>().add(
                               BPWidgetPropsSave(
-                                props: BpwidgetProps.fromMap(
-                                  bpWidgetPropsForm.value,
-                                ),
+                                props: BpwidgetProps.fromMap({
+                                  ...bpWidgetPropsForm.value,
+                                  'id': widget.props!.id,
+                                }),
                               ),
                             );
                           },
