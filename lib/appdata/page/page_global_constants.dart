@@ -25,7 +25,7 @@ class PageGlobalConstants {
   });
 }
 
-class BPPageController extends BPPageHelper {
+class BPPageController extends BPPageHelper with SelectePageMixin {
   PageRegistryMap pagesRegistry;
   BPPageController({required this.pagesRegistry});
 
@@ -46,10 +46,21 @@ class BPPageController extends BPPageHelper {
         .first
         .value;
   }
+
+  @override
+  void selectPage(String pageId) {
+    if (pagesRegistry != null) {
+      pagesRegistry[pageId]!.isSelected = true;
+    }
+  }
 }
 
 abstract class BPPageHelper {
   PageGlobalConstants selectedPage();
+}
+
+mixin SelectePageMixin {
+  void selectPage(String pageId);
 }
 
 PageRegistryMapEntry loadPage({

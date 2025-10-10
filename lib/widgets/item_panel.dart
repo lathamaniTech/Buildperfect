@@ -155,7 +155,10 @@ class _ItemsPanelState extends State<ItemPanel> {
             border:
                 selectedIndex == index
                     ? Border.all(width: 2, color: Colors.teal)
-                    : Border.all(width: 2, color: Colors.transparent),
+                    : Border.all(
+                      width: 2,
+                      color: const Color.fromRGBO(0, 0, 0, 0),
+                    ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

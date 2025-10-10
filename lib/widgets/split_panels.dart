@@ -8,6 +8,7 @@
 import 'dart:math';
 
 import 'package:dashboard/appdata/page/page_global_constants.dart';
+import 'package:dashboard/appstyles/global_colors.dart';
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/bloc/bpwidgets/bpwidget_bloc.dart';
@@ -34,7 +35,10 @@ class _SplitPanelState extends State<SplitPanel> {
   ///  to create pages on the fly , the created pages will be loaded in
   ///  the left panel -> pages panel where user can select pages to configure
   /// BPWidgets
-  final bpController = BPPageController.loadNPages(5);
+  ///
+  BPPageController bpController = BPPageController.loadNPages(5);
+
+  ///
   List<BPWidget> upper = [];
   final List<BPWidget> lower = [
     BPWidget(
@@ -236,7 +240,7 @@ class _SplitPanelState extends State<SplitPanel> {
                       width: 2,
                       height: constraints.maxHeight,
                       left: leftPanelWidth,
-                      child: ColoredBox(color: Colors.black),
+                      child: ColoredBox(color: GlobalColors.centerPanelBGColor),
                     ),
                     Positioned(
                       // centerpanel for dragtarget
@@ -244,7 +248,9 @@ class _SplitPanelState extends State<SplitPanel> {
                       height: constraints.maxHeight,
                       left: leftPanelWidth,
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: Colors.blue.shade300),
+                        decoration: BoxDecoration(
+                          color: GlobalColors.centerPanelBGColor,
+                        ),
                         child: MyDropRegion(
                           onDrop: drop,
                           updateDropPreview: updateDropPreview,
