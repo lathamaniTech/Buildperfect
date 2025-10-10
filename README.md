@@ -1,16 +1,17 @@
-# dashboard
-
-A new Flutter project.
+## BuildPerfect
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## Appbuilder - SplitPanel
 
-A few resources to get you started if this is your first Flutter project:
+Drag drop widgets [BPWidgets] from left panel to center panel [ItemsPanel].
+the array of formcontrol knows as [List<BPWidgets>]
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+BPWidgetsList contains all the dragged BPWidgets , you can get it from [SplitPanel] {upper} property
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Configure Formcontrol properties
+
+click on the dragged BPWiget to configure formcontrol properties [BpwidgetProps]
+BpWidgetProps are configured in [RightPanel] [PropsPanel] widget
+
+##

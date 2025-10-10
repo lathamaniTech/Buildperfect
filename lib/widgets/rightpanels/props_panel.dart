@@ -54,17 +54,26 @@ class _PropsPanelState extends State<PropsPanel> {
         }
       },
       builder: (context, state) {
-        print('PropsPanel => ${state.bpwidgetProps}');
-        bpWidgetPropsForm.controls['label']?.updateValue(
-          state.bpwidgetProps.label != null || state.bpwidgetProps.label != ''
-              ? state.bpwidgetProps.label
-              : widget.props!.label,
-        );
+        print('PropsPanel => ${widget.props}');
+
+        bpWidgetPropsForm.controls['label']?.updateValue(widget.props!.label);
         bpWidgetPropsForm.controls['controlName']?.updateValue(
-          state.bpwidgetProps.controlName,
+          widget.props!.controlName,
         );
         bpWidgetPropsForm.controls['controlType']?.updateValue(
           widget.props!.controlType,
+        );
+
+        bpWidgetPropsForm.controls['isRequired']?.updateValue(
+          widget.props!.isRequired,
+        );
+        bpWidgetPropsForm.controls['min']?.updateValue(widget.props!.min);
+        bpWidgetPropsForm.controls['max']?.updateValue(widget.props!.max);
+        bpWidgetPropsForm.controls['isVerificationRequired']?.updateValue(
+          widget.props!.isVerificationRequired,
+        );
+        bpWidgetPropsForm.controls['validationPatterns']?.updateValue(
+          widget.props!.validationPatterns,
         );
 
         return ReactiveForm(
@@ -176,11 +185,13 @@ class _PropsPanelState extends State<PropsPanel> {
                             print(
                               'bpWidgetPropsForm.value => ${bpWidgetPropsForm.value}',
                             );
+                            // BpwidgetProps.fromMap({...bpWidgetPropsForm.value,'id':widget.props!.id});
                             context.read<BpwidgetPropsBloc>().add(
                               BPWidgetPropsSave(
-                                props: BpwidgetProps.fromMap(
-                                  bpWidgetPropsForm.value,
-                                ),
+                                props: BpwidgetProps.fromMap({
+                                  ...bpWidgetPropsForm.value,
+                                  'id': widget.props!.id,
+                                }),
                               ),
                             );
                           },

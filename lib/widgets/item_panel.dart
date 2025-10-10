@@ -13,6 +13,7 @@ import 'package:dashboard/types/drag_drop_types.dart';
 import 'package:dashboard/widgets/containers/dragged_holder.dart';
 import 'package:dashboard/widgets/currency_field.dart';
 import 'package:dashboard/widgets/my_draggable_widget.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class ItemPanel extends StatefulWidget {
@@ -64,14 +65,11 @@ class _ItemsPanelState extends State<ItemPanel> {
           ///
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
-            widget.items[selectedIndex].widgetType,
-          );
+          BpwidgetProps bpWidgetPropsObj = props;
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
-        labelText:
-            props.label.isEmpty ? 'label ${index + 1}' : props.controlName,
+        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -89,22 +87,9 @@ class _ItemsPanelState extends State<ItemPanel> {
                   enabled:
                       false, // enabled: selectedIndex == index ? true : false,
                   decoration: InputDecoration(
-                    // border: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.transparent),
-                    // ),
                     hintText: 'Textbox',
                     label: Text('TextField'),
                     floatingLabelStyle: TextStyle(fontSize: 14),
-
-                    // disabledBorder:
-                    //     selectedIndex == index
-                    //         ? OutlineInputBorder(
-                    //           borderRadius: BorderRadius.circular(10),
-                    //           borderSide: GlobalStyles.selectedBorderStyle,
-                    //         )
-                    //         : OutlineInputBorder(
-                    //           borderSide: GlobalStyles.unselectedBorderStyle,
-                    //         ),
                   ),
                 ),
               ),
@@ -119,13 +104,11 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
-            widget.items[selectedIndex].widgetType,
-          );
+          BpwidgetProps bpWidgetPropsObj = props;
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
-        labelText: 'label ${index + 1}',
+        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -148,17 +131,6 @@ class _ItemsPanelState extends State<ItemPanel> {
                   inputDecorationTheme: InputDecorationTheme(
                     disabledBorder: InputBorder.none,
                   ),
-                  // inputDecorationTheme: InputDecorationTheme(
-                  //   disabledBorder:
-                  //       selectedIndex == index
-                  //           ? OutlineInputBorder(
-                  //             borderRadius: BorderRadius.circular(10),
-                  //             borderSide: GlobalStyles.selectedBorderStyle,
-                  //           )
-                  //           : OutlineInputBorder(
-                  //             borderSide: GlobalStyles.unselectedBorderStyle,
-                  //           ),
-                  // ),
                 ),
               ),
               selectedIndex == index
@@ -172,9 +144,7 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
-            widget.items[selectedIndex].widgetType,
-          );
+          BpwidgetProps bpWidgetPropsObj = props;
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
@@ -218,9 +188,7 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = getWidgetProps(
-            widget.items[selectedIndex].widgetType,
-          );
+          BpwidgetProps bpWidgetPropsObj = props;
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
@@ -269,19 +237,36 @@ class _ItemsPanelState extends State<ItemPanel> {
       PlaceholderWidgets.Currency => DraggedHolder(
         onTapDraggedControl: () {
           selectedIndex = index;
+
           BpwidgetProps bpWidgetPropsObj = getWidgetProps(
             widget.items[selectedIndex].widgetType,
           );
           widget.onItemClicked!(bpWidgetPropsObj);
           setState(() {});
         },
-        labelText: 'label ${index + 1}',
-        child: CurrencyField(
-          enabled: false,
-          selectedIndex: selectedIndex,
-          index: index,
-          lable: 'Currency',
-          hintText: 'Enter Amount',
+        labelText:
+            props.label.isEmpty ? 'label ${index + 1}' : props.controlName,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
+                selectedIndex == index
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 300,
+                child: CurrencyField(enabled: false, hintText: 'Enter Amount'),
+              ),
+
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox50,
+            ],
+          ),
         ),
       ),
     };
@@ -309,8 +294,14 @@ class _ItemsPanelState extends State<ItemPanel> {
   @override
   Widget build(BuildContext context) {
     /// have a copy of dragstartCopy to keep the local copy
+    /// so
+    if (widget.items.length > 0) {
+      print(
+        'itemscopy WIDGET ID   => ${widget.items[0].id} ${widget.items[0].bpwidgetProps}',
+      );
+    }
+
     final itemsCopy = List<BPWidget>.from(widget.items);
-    // print('itemscopy => $itemsCopy');
     if (widget.panel == Panel.upper) {
       return ListView(
         padding: const EdgeInsets.all(4),
@@ -373,13 +364,12 @@ class _ItemsPanelState extends State<ItemPanel> {
                   ),
                 ),
               );
-              return Draggable(
-                feedback: child,
-                child: MyDraggableWidget(
-                  data: e.value.widgetType.name,
-                  onDragStart: () => widget.onDragStart((e.key, widget.panel)),
-                  child: child,
-                ),
+              // return Draggable(
+              //   feedback: child,
+              return MyDraggableWidget(
+                data: e.value.widgetType.name,
+                onDragStart: () => widget.onDragStart((e.key, widget.panel)),
+                child: child,
               );
               // );
             }).toList(),
