@@ -96,6 +96,13 @@ class _PropsPanelState extends State<PropsPanel> {
                       labeltext: 'Label',
                       width: widget.width,
                       formControlName: 'label',
+                      onChange: (val) {
+                        bpWidgetPropsForm.controls['controlName']!.value =
+                            widget.props!.controlName;
+                        bpWidgetPropsForm.controls['controlName']!.patchValue(
+                          '${bpWidgetPropsForm.controls['controlName']!.value}${val.value}',
+                        );
+                      },
                     ),
                   ),
                   Padding(
