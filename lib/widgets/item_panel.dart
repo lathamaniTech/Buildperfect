@@ -24,7 +24,7 @@ class ItemPanel extends StatefulWidget {
   final PanelLocation? dragStart;
   final PanelLocation? dropPreview;
   final BPWidget? hoveringData;
-  final Function(BpwidgetProps item)? onItemClicked;
+  final Function(BPWidget item)? onItemClicked;
   const ItemPanel({
     super.key,
     required this.items,
@@ -50,7 +50,7 @@ class _ItemsPanelState extends State<ItemPanel> {
   int selectedIndex = 0;
 
   Widget getWidgetPlaceholders(
-    BpwidgetProps props,
+    BPWidget props,
     PlaceholderWidgets controlName, {
     int index = 0,
   }) {
@@ -64,11 +64,14 @@ class _ItemsPanelState extends State<ItemPanel> {
           ///
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          // BpwidgetProps bpWidgetPropsObj = props.bpwidgetProps!;
+          widget.onItemClicked!(props);
           setState(() {});
         },
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -103,11 +106,14 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          // BpwidgetProps bpWidgetPropsObj = props;
+          widget.onItemClicked!(props);
           setState(() {});
         },
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -143,12 +149,14 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          widget.onItemClicked!(props);
           setState(() {});
         },
 
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
 
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -191,8 +199,7 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          widget.onItemClicked!(props);
           setState(() {});
         },
         labelText: 'label ${index + 1}',
@@ -233,13 +240,16 @@ class _ItemsPanelState extends State<ItemPanel> {
         ),
       ),
       PlaceholderWidgets.Button => DraggedHolder(
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
 
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          // BpwidgetProps bpWidgetPropsObj = props.bpwidgetProps!;
+          widget.onItemClicked!(props);
           setState(() {});
         },
         child: DecoratedBox(
@@ -316,8 +326,8 @@ class _ItemsPanelState extends State<ItemPanel> {
                   ),
                   child: Center(
                     child: getWidgetPlaceholders(
-                      e.value.bpwidgetProps!,
-                      e.value.widgetType,
+                      e.value,
+                      e.value.widgetType!,
                       index: e.key,
                     ),
                   ),
@@ -353,9 +363,9 @@ class _ItemsPanelState extends State<ItemPanel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      renderIconsForFormControlsCard(e.value.widgetType),
+                      renderIconsForFormControlsCard(e.value.widgetType!),
                       Text(
-                        e.value.widgetType.name,
+                        e.value.widgetType!.name,
                         style: TextStyle(color: textColor, fontSize: 12),
                       ),
                     ],
@@ -365,7 +375,7 @@ class _ItemsPanelState extends State<ItemPanel> {
               return Draggable(
                 feedback: child,
                 child: MyDraggableWidget(
-                  data: e.value.widgetType.name,
+                  data: e.value.widgetType!.name,
                   onDragStart: () => widget.onDragStart((e.key, widget.panel)),
                   child: child,
                 ),

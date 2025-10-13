@@ -4,16 +4,11 @@ import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
 
 class BPWidget {
-  final PlaceholderWidgets widgetType;
+  final PlaceholderWidgets? widgetType;
   final String? id;
   BpwidgetProps? bpwidgetProps;
   BpwidgetAction? bpwidgetAction;
-  BPWidget({
-    required this.widgetType,
-    this.id,
-    this.bpwidgetProps,
-    this.bpwidgetAction,
-  });
+  BPWidget({this.widgetType, this.id, this.bpwidgetProps, this.bpwidgetAction});
 
   BPWidget copyWith({
     PlaceholderWidgets? widgetType,
