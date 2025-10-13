@@ -38,27 +38,31 @@ Each task will have SUBTASK - example task go is a task , it's subtask is empty 
 
 # Task - go - subtask is seturl and push
 
-action - actionId : "uniqueActionId" - job = {
-jobType:"Navigation",
-jobId : "Navigation_uniquetaskid"
-jobName: "go"
-jobData:<NavigationtaskParams>{
-'url':'pageurl',
-'data':Map<String,dynamic>{}
-}
-tasks : <Navigationtask>[
 {
-taskId:"",
-taskName:"checkUrl",
-status:"success | error"
+"action": <BpWidgetAction>{
+"actionId" : "uniqueActionId",
+"job": <BpWidgetJob>{
+"jobType":"Navigation",
+"jobId" : "Navigation_uniquetaskid"
+"jobName": "go"
+"jobData":<NavigationtaskParams>{
+"url":"pageurl",
+"data":Map<String,dynamic>{}
+},
+"tasks" : <Navigationtask>[
+{
+"taskId":"",
+"taskName":"checkUrl",
+"status":"success | error"
 },
 {
-taskId:"",
-taskName:"navigation",
-status:"success | error"
-
+"taskId":"",
+"taskName":"navigation",
+"status":"success | error"
 }
 ]
+}
+}
 }
 
 # Task - saveandgo
@@ -66,27 +70,28 @@ status:"success | error"
          subtask - checkFormName , checkFormStatus , checkVerificationField ,
                    verification , callFormSaveAPI
 
-    action
-    -  actionId : "uniqueActionId"
-    -  job = {
-        jobType:"SaveAndGoNavigation",
-        jobId : "SaveAndGoNavigation_uniquetaskid"
-        jobName: "saveandgo"
-        jobData:<SaveAndGoNavigationtaskParams>{
-            'submit_api_config':<API_CONFIG_PARAMS>{
-            'apitype':'submit',
-            'apiendpoint':'',
-            'apiname':'',
-            'api_request_map':{},
-            'api_response_map':{},
-            'api_success_config':<APISuccessConfig>{
-                'url':'pageurl',
-                'message':'success_message'
-            },
-            'api_error_config':<APIErrorConfig>{
-                'url':'pageurl',
-                'message':'success_message'
-            },
+{
+"action":{
+"actionId" : "uniqueActionId"
+"job" :{
+"jobType":"SaveAndGoNavigation",
+"jobId" : "SaveAndGoNavigation_uniquetaskid",
+"jobName": "saveandgo",
+"jobData":<SaveAndGoNavigationtaskParams>{
+'submit_api_config':<API_CONFIG_PARAMS>{
+'apitype':'submit',
+'apiendpoint':'',
+'apiname':'',
+'api_request_map':{},
+'api_response_map':{},
+'api_success_config':<APISuccessConfig>{
+'url':'pageurl',
+'message':'success_message'
+},
+'api_error_config':<APIErrorConfig>{
+'url':'pageurl',
+'message':'success_message'
+},
 
             },
 
@@ -148,5 +153,9 @@ status:"success | error"
             }
 
 
-        ]
+            ]
+          }
+        }
     }
+
+}
