@@ -270,7 +270,7 @@ class _ItemsPanelState extends State<ItemPanel> {
     final itemsCopy = List<BPWidget>.from(widget.items);
     if (widget.panel == Panel.upper) {
       return ListView(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.only(top: 4, left: 0, right: 70),
         children:
             itemsCopy.asMap().entries.map<Widget>((e) {
               Widget child = SizedBox(

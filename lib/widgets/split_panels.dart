@@ -207,7 +207,9 @@ class _SplitPanelState extends State<SplitPanel> {
               final leftPanelWidth = constraints.maxWidth / 4;
               final centerPanelWidth = constraints.maxWidth / 2;
               final rightPanelWidth =
-                  constraints.maxWidth - (leftPanelWidth + centerPanelWidth);
+                  constraints.maxWidth -
+                  (leftPanelWidth + centerPanelWidth) +
+                  80;
               return Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Stack(

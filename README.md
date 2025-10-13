@@ -92,6 +92,7 @@ status:"success | error"
 
             'data':Map<String,dynamic>{},
             'verification_api_config':<API_CONFIG_PARAMS>[
+        {
             'api_type':'verification',
             'apiendpoint':'',
             'apiname':'',
@@ -105,8 +106,10 @@ status:"success | error"
                 'url':'pageurl',
                 'message':'success_message'
             },
+        },
+        {
 
-                            'apiendpoint':'',
+            'apiendpoint':'',
             'apiname':'',
             'api_request_map':{},
             'api_response_map':{},
@@ -118,10 +121,10 @@ status:"success | error"
                 'url':'pageurl',
                 'message':'success_message'
             },
-
+        }
 
             ]
-        }
+
         tasks : <SaveAndGoNavigationTask>[
             {
                 taskId:"",
@@ -131,11 +134,6 @@ status:"success | error"
             {
                 taskId:"",
                 taskName:"verifyFormFields",
-                status:"success | error"
-            },
-            {
-                taskId:"",
-                taskName:"saveForm",
                 status:"success | error"
             },
             {
