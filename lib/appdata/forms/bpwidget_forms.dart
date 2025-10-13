@@ -16,5 +16,6 @@ class BpwidgetForms {
   static FormGroup get_bpwidgetaction_forms() => FormGroup({
     'event': FormControl<String>(),
     'action': FormControl<String>(),
+    'pageurl': FormControl<String>(),
   });
 }
