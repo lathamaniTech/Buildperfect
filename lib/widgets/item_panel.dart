@@ -148,7 +148,8 @@ class _ItemsPanelState extends State<ItemPanel> {
           setState(() {});
         },
 
-        labelText: 'label ${index + 1}',
+        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -231,9 +232,40 @@ class _ItemsPanelState extends State<ItemPanel> {
           ),
         ),
       ),
-      PlaceholderWidgets.Button => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [ElevatedButton(onPressed: () {}, child: Text('Save'))],
+      PlaceholderWidgets.Button => DraggedHolder(
+        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+
+        onTapDraggedControl: () {
+          selectedIndex = index;
+
+          BpwidgetProps bpWidgetPropsObj = props;
+          widget.onItemClicked!(bpWidgetPropsObj);
+          setState(() {});
+        },
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
+                selectedIndex == index
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: ElevatedButton(onPressed: () {}, child: Text('Save')),
+                ),
+              ),
+              GlobalStyles.fillerSizedBox50,
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox50,
+            ],
+          ),
+        ),
       ),
       PlaceholderWidgets.Label => Text('label ${index + 1}'),
     };
