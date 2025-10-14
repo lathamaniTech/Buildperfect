@@ -47,7 +47,7 @@ class _PropsPanelState extends State<PropsPanel> {
             BpwidgetLoadProps(
               bpWidget: BPWidget(
                 bpwidgetProps: state.bpwidgetProps,
-                widgetType: PlaceholderWidgets.Textfield,
+                // widgetType: PlaceholderWidgets.Textfield,
               ),
             ),
           );

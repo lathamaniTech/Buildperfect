@@ -38,27 +38,37 @@ Each task will have SUBTASK - example task go is a task , it's subtask is empty 
 
 # Task - go - subtask is seturl and push
 
-action - actionId : "uniqueActionId" - job = {
-jobType:"Navigation",
-jobId : "Navigation_uniquetaskid"
-jobName: "go"
-jobData:<NavigationtaskParams>{
-'url':'pageurl',
-'data':Map<String,dynamic>{}
-}
-tasks : <Navigationtask>[
 {
-taskId:"",
-taskName:"checkUrl",
-status:"success | error"
+"widget":<BPWidget>{
+"props":<BPWidgetProps>{
+"id":"",
+"label:"",
+},
+"action": <BpWidgetAction>{
+"actionId" : "uniqueActionId",
+"job": <BpWidgetJob>{
+"jobType":"Navigation",
+"jobId" : "Navigation_uniquetaskid"
+"jobName": "go"
+"jobData":<NavigationtaskDataprovider>{
+"url":"pageurl",
+"data":Map<String,dynamic>{}
+},
+"tasks" : <Navigationtask>[
+{
+"taskId":"",
+"taskName":"checkUrl",
+"status":"success | error"
 },
 {
-taskId:"",
-taskName:"navigation",
-status:"success | error"
-
+"taskId":"",
+"taskName":"navigation",
+"status":"success | error"
 }
 ]
+}
+}
+}
 }
 
 # Task - saveandgo
@@ -66,32 +76,34 @@ status:"success | error"
          subtask - checkFormName , checkFormStatus , checkVerificationField ,
                    verification , callFormSaveAPI
 
-    action
-    -  actionId : "uniqueActionId"
-    -  job = {
-        jobType:"SaveAndGoNavigation",
-        jobId : "SaveAndGoNavigation_uniquetaskid"
-        jobName: "saveandgo"
-        jobData:<SaveAndGoNavigationtaskParams>{
-            'submit_api_config':<API_CONFIG_PARAMS>{
-            'apitype':'submit',
-            'apiendpoint':'',
-            'apiname':'',
-            'api_request_map':{},
-            'api_response_map':{},
-            'api_success_config':<APISuccessConfig>{
-                'url':'pageurl',
-                'message':'success_message'
-            },
-            'api_error_config':<APIErrorConfig>{
-                'url':'pageurl',
-                'message':'success_message'
-            },
+{
+"action":{
+"actionId" : "uniqueActionId"
+"job" :{
+"jobType":"SaveAndGoNavigation",
+"jobId" : "SaveAndGoNavigation_uniquetaskid",
+"jobName": "saveandgo",
+"jobData":<SaveAndGoNavigationtaskParams>{
+'submit_api_config':<API_CONFIG_PARAMS>{
+'apitype':'submit',
+'apiendpoint':'',
+'apiname':'',
+'api_request_map':{},
+'api_response_map':{},
+'api_success_config':<APISuccessConfig>{
+'url':'pageurl',
+'message':'success_message'
+},
+'api_error_config':<APIErrorConfig>{
+'url':'pageurl',
+'message':'success_message'
+},
 
             },
 
             'data':Map<String,dynamic>{},
             'verification_api_config':<API_CONFIG_PARAMS>[
+        {
             'api_type':'verification',
             'apiendpoint':'',
             'apiname':'',
@@ -105,8 +117,10 @@ status:"success | error"
                 'url':'pageurl',
                 'message':'success_message'
             },
+        },
+        {
 
-                            'apiendpoint':'',
+            'apiendpoint':'',
             'apiname':'',
             'api_request_map':{},
             'api_response_map':{},
@@ -118,10 +132,10 @@ status:"success | error"
                 'url':'pageurl',
                 'message':'success_message'
             },
-
+        }
 
             ]
-        }
+
         tasks : <SaveAndGoNavigationTask>[
             {
                 taskId:"",
@@ -140,15 +154,30 @@ status:"success | error"
             },
             {
                 taskId:"",
-                taskName:"saveForm",
-                status:"success | error"
-            },
-            {
-                taskId:"",
                 taskName:"navigation",
                 status:"success | error"
             }
 
 
-        ]
+            ]
+          }
+        }
     }
+
+}
+
+/// BPRunTime
+
+bool \_checkTheNavURL() {
+var datafromappbuilder = BPDataProvider();
+if(datafromappbuilder.data.url.isNotEmpty || urlLib.isAvailable(datafromappbuilder.data.url) ){
+
+        return true
+
+    }
+
+}
+
+Map<string , dynamic> bpruntimelib = {
+'checkUrl' : \_checkTheNavURL
+}

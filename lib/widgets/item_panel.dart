@@ -25,7 +25,7 @@ class ItemPanel extends StatefulWidget {
   final PanelLocation? dragStart;
   final PanelLocation? dropPreview;
   final BPWidget? hoveringData;
-  final Function(BpwidgetProps item)? onItemClicked;
+  final Function(BPWidget item)? onItemClicked;
   const ItemPanel({
     super.key,
     required this.items,
@@ -51,7 +51,7 @@ class _ItemsPanelState extends State<ItemPanel> {
   int selectedIndex = 0;
 
   Widget getWidgetPlaceholders(
-    BpwidgetProps props,
+    BPWidget props,
     PlaceholderWidgets controlName, {
     int index = 0,
   }) {
@@ -65,11 +65,14 @@ class _ItemsPanelState extends State<ItemPanel> {
           ///
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          // BpwidgetProps bpWidgetPropsObj = props.bpwidgetProps!;
+          widget.onItemClicked!(props);
           setState(() {});
         },
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -104,11 +107,14 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          // BpwidgetProps bpWidgetPropsObj = props;
+          widget.onItemClicked!(props);
           setState(() {});
         },
-        labelText: props.label.isEmpty ? 'label ${index + 1}' : props.label,
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -144,12 +150,15 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          widget.onItemClicked!(props);
           setState(() {});
         },
 
-        labelText: 'label ${index + 1}',
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
+
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -191,8 +200,7 @@ class _ItemsPanelState extends State<ItemPanel> {
         onTapDraggedControl: () {
           selectedIndex = index;
 
-          BpwidgetProps bpWidgetPropsObj = props;
-          widget.onItemClicked!(bpWidgetPropsObj);
+          widget.onItemClicked!(props);
           setState(() {});
         },
         labelText: 'label ${index + 1}',
@@ -232,9 +240,43 @@ class _ItemsPanelState extends State<ItemPanel> {
           ),
         ),
       ),
-      PlaceholderWidgets.Button => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [ElevatedButton(onPressed: () {}, child: Text('Save'))],
+      PlaceholderWidgets.Button => DraggedHolder(
+        labelText:
+            props.bpwidgetProps!.label.isEmpty
+                ? 'label ${index + 1}'
+                : props.bpwidgetProps!.label,
+
+        onTapDraggedControl: () {
+          selectedIndex = index;
+
+          // BpwidgetProps bpWidgetPropsObj = props.bpwidgetProps!;
+          widget.onItemClicked!(props);
+          setState(() {});
+        },
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border:
+                selectedIndex == index
+                    ? Border.all(width: 2, color: Colors.teal)
+                    : Border.all(width: 2, color: Colors.transparent),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: ElevatedButton(onPressed: () {}, child: Text('Save')),
+                ),
+              ),
+              GlobalStyles.fillerSizedBox50,
+              selectedIndex == index
+                  ? GlobalStyles.selectedIcon
+                  : GlobalStyles.fillerSizedBox50,
+            ],
+          ),
+        ),
       ),
       PlaceholderWidgets.Label => Text('label ${index + 1}'),
       PlaceholderWidgets.Currency => DraggedHolder(
@@ -307,7 +349,7 @@ class _ItemsPanelState extends State<ItemPanel> {
     final itemsCopy = List<BPWidget>.from(widget.items);
     if (widget.panel == Panel.upper) {
       return ListView(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.only(top: 4, left: 0, right: 70),
         children:
             itemsCopy.asMap().entries.map<Widget>((e) {
               Widget child = SizedBox(
@@ -321,8 +363,8 @@ class _ItemsPanelState extends State<ItemPanel> {
                   ),
                   child: Center(
                     child: getWidgetPlaceholders(
-                      e.value.bpwidgetProps!,
-                      e.value.widgetType,
+                      e.value,
+                      e.value.widgetType!,
                       index: e.key,
                     ),
                   ),
@@ -358,21 +400,22 @@ class _ItemsPanelState extends State<ItemPanel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      renderIconsForFormControlsCard(e.value.widgetType),
+                      renderIconsForFormControlsCard(e.value.widgetType!),
                       Text(
-                        e.value.widgetType.name,
+                        e.value.widgetType!.name,
                         style: TextStyle(color: textColor, fontSize: 12),
                       ),
                     ],
                   ),
                 ),
               );
-              // return Draggable(
-              //   feedback: child,
-              return MyDraggableWidget(
-                data: e.value.widgetType.name,
-                onDragStart: () => widget.onDragStart((e.key, widget.panel)),
-                child: child,
+              return Draggable(
+                feedback: child,
+                child: MyDraggableWidget(
+                  data: e.value.widgetType!.name,
+                  onDragStart: () => widget.onDragStart((e.key, widget.panel)),
+                  child: child,
+                ),
               );
               // );
             }).toList(),

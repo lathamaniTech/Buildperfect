@@ -145,7 +145,7 @@ class _SplitPanelState extends State<SplitPanel> {
       if (dropPreview!.$2 == Panel.upper) {
         final uniqueID = MathUtils.generateUniqueID();
         // print('onDrop => ${lower[dropPreview!.$1].bpwidgetProps}');
-        print('hoveringData!.widgetType => ${hoveringData!.widgetType.name}');
+        print('hoveringData!.widgetType => ${hoveringData!.widgetType!.name}');
         hoveringData = BPWidget(
           widgetType: hoveringData!.widgetType,
           id: uniqueID,
@@ -153,7 +153,7 @@ class _SplitPanelState extends State<SplitPanel> {
             label: '',
             controlName:
                 '${bpController.pagesRegistry.entries.first.value.pageName}_',
-            controlType: hoveringData!.widgetType.name,
+            controlType: hoveringData!.widgetType!.name,
             id: uniqueID,
           ),
         );
@@ -164,9 +164,9 @@ class _SplitPanelState extends State<SplitPanel> {
     });
   }
 
-  void onItemClickRef(BpwidgetProps widget) {
+  void onItemClickRef(BPWidget widget) {
     print('onItemClickRef => ${widget}');
-    selectedWidget = widget;
+    selectedWidget = widget.bpwidgetProps!;
     setState(() {});
   }
 
@@ -224,7 +224,9 @@ class _SplitPanelState extends State<SplitPanel> {
               final leftPanelWidth = constraints.maxWidth / 4;
               final centerPanelWidth = constraints.maxWidth / 2;
               final rightPanelWidth =
-                  constraints.maxWidth - (leftPanelWidth + centerPanelWidth);
+                  constraints.maxWidth -
+                  (leftPanelWidth + centerPanelWidth) +
+                  80;
               return Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Stack(
