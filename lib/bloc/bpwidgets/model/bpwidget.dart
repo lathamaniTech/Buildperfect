@@ -1,3 +1,7 @@
+/*
+  @author     :   karthick.d  09/10/2025
+  @desc
+*/
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/types/drag_drop_types.dart';
