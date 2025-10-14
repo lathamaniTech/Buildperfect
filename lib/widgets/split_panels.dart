@@ -128,7 +128,7 @@ class _SplitPanelState extends State<SplitPanel> {
       if (dropPreview!.$2 == Panel.upper) {
         final uniqueID = MathUtils.generateUniqueID();
         // print('onDrop => ${lower[dropPreview!.$1].bpwidgetProps}');
-        print('hoveringData!.widgetType => ${hoveringData!.widgetType.name}');
+        print('hoveringData!.widgetType => ${hoveringData!.widgetType!.name}');
         hoveringData = BPWidget(
           widgetType: hoveringData!.widgetType,
           id: uniqueID,
@@ -136,7 +136,7 @@ class _SplitPanelState extends State<SplitPanel> {
             label: '',
             controlName:
                 '${bpController.pagesRegistry.entries.first.value.pageName}_',
-            controlType: hoveringData!.widgetType.name,
+            controlType: hoveringData!.widgetType!.name,
             id: uniqueID,
           ),
         );
@@ -147,9 +147,9 @@ class _SplitPanelState extends State<SplitPanel> {
     });
   }
 
-  void onItemClickRef(BpwidgetProps widget) {
+  void onItemClickRef(BPWidget widget) {
     print('onItemClickRef => ${widget}');
-    selectedWidget = widget;
+    selectedWidget = widget.bpwidgetProps!;
     setState(() {});
   }
 
