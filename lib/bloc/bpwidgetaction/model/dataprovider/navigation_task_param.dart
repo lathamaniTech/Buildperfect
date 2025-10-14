@@ -11,3 +11,10 @@ import 'package:dashboard/bloc/bpwidgetaction/model/dataprovider/bpwidget_tasks_
 class NavigationTaskDataProvider extends BPTaskDataprovider {
   NavigationTaskDataProvider({required super.url});
 }
+
+class NavigationWithDataTaskProvider extends BPTaskDataprovider {
+  final String url;
+  final Map<String, dynamic> data;
+  NavigationWithDataTaskProvider({required this.url, required this.data})
+    : super(url: url, data: data);
+}

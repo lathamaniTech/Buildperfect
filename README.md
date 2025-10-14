@@ -39,13 +39,18 @@ Each task will have SUBTASK - example task go is a task , it's subtask is empty 
 # Task - go - subtask is seturl and push
 
 {
+"widget":<BPWidget>{
+"props":<BPWidgetProps>{
+"id":"",
+"label:"",
+},
 "action": <BpWidgetAction>{
 "actionId" : "uniqueActionId",
 "job": <BpWidgetJob>{
 "jobType":"Navigation",
 "jobId" : "Navigation_uniquetaskid"
 "jobName": "go"
-"jobData":<NavigationtaskParams>{
+"jobData":<NavigationtaskDataprovider>{
 "url":"pageurl",
 "data":Map<String,dynamic>{}
 },
@@ -61,6 +66,7 @@ Each task will have SUBTASK - example task go is a task , it's subtask is empty 
 "status":"success | error"
 }
 ]
+}
 }
 }
 }
@@ -158,4 +164,20 @@ Each task will have SUBTASK - example task go is a task , it's subtask is empty 
         }
     }
 
+}
+
+/// BPRunTime
+
+bool \_checkTheNavURL() {
+var datafromappbuilder = BPDataProvider();
+if(datafromappbuilder.data.url.isNotEmpty || urlLib.isAvailable(datafromappbuilder.data.url) ){
+
+        return true
+
+    }
+
+}
+
+Map<string , dynamic> bpruntimelib = {
+'checkUrl' : \_checkTheNavURL
 }
