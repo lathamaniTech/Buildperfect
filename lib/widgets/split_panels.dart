@@ -9,6 +9,7 @@ import 'dart:math';
 
 import 'package:dashboard/appdata/page/page_global_constants.dart';
 import 'package:dashboard/appstyles/global_colors.dart';
+import 'package:dashboard/bloc/bpwidgetaction/model/action/bpwidget_action.dart';
 import 'package:dashboard/bloc/bpwidgetprops/bpwidget_props_bloc.dart';
 import 'package:dashboard/bloc/bpwidgetprops/model/bpwidget_props.dart';
 import 'package:dashboard/bloc/bpwidgets/bpwidget_bloc.dart';
@@ -95,11 +96,7 @@ class _SplitPanelState extends State<SplitPanel> {
   PanelLocation? dropPreview;
 
   BPWidget? hoveringData;
-  BpwidgetProps selectedWidget = BpwidgetProps(
-    label: '',
-    controlName: '',
-    controlType: '',
-  );
+  BPWidget? selectedWidgetProps;
 
   /// this method is called when the itemplaceholder is dragged
   /// it's set  the state -> dragStart and data state properties
@@ -139,6 +136,9 @@ class _SplitPanelState extends State<SplitPanel> {
             controlType: hoveringData!.widgetType!.name,
             id: uniqueID,
           ),
+          bpwidgetAction: [
+            BpwidgetAction.initWithId(id: uniqueID),
+          ], // list of formcontrolactions
         );
 
         print('hoveringData => ${hoveringData!.id}');
@@ -149,7 +149,7 @@ class _SplitPanelState extends State<SplitPanel> {
 
   void onItemClickRef(BPWidget widget) {
     print('onItemClickRef => ${widget}');
-    selectedWidget = widget.bpwidgetProps!;
+    selectedWidgetProps = widget;
     setState(() {});
   }
 
@@ -184,7 +184,9 @@ class _SplitPanelState extends State<SplitPanel> {
                 state.bpWidgetsList![0].bpwidgetProps!.validationPatterns,
             id: state.bpWidgetsList![0].bpwidgetProps!.id,
           );
-          print(_upper.bpwidgetProps!.label);
+
+          _upper.bpwidgetAction = state.bpWidgetsList![0].bpwidgetAction;
+
           // _upper.copyWith(bpwidgetProps: state.bpWidgetsList![0].bpwidgetProps);
           upper[indexOfSelectedBpWidget] = _upper;
           print(upper[0].bpwidgetProps!.label);
@@ -285,7 +287,7 @@ class _SplitPanelState extends State<SplitPanel> {
                         child: RightPanel(
                           width: rightPanelWidth,
                           height: constraints.maxHeight,
-                          props: selectedWidget,
+                          props: selectedWidgetProps,
                         ),
                       ),
                     ),

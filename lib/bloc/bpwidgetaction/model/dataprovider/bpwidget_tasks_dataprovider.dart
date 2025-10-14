@@ -11,4 +11,7 @@ class BPTaskDataprovider {
   final String url;
   final Map<String, dynamic>? data;
   BPTaskDataprovider({required this.url, this.data});
+
+  @override
+  String toString() => 'BPTaskDataprovider(url: $url, data: $data)';
 }

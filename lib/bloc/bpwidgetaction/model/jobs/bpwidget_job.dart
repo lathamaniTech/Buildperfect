@@ -24,4 +24,9 @@ class BPwidgetJob {
     required this.taskDataprovider,
     required this.tasks,
   });
+
+  @override
+  String toString() {
+    return 'BPwidgetJob(type: $type, id: $id, name: $name, taskDataprovider: $taskDataprovider, tasks: $tasks)';
+  }
 }
