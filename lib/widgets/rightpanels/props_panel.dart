@@ -16,7 +16,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 class PropsPanel extends StatefulWidget {
   final double width;
   final double height;
-  final BpwidgetProps? props;
+  final BPWidget? props;
   const PropsPanel({
     super.key,
     required this.width,
@@ -55,27 +55,33 @@ class _PropsPanelState extends State<PropsPanel> {
       },
       builder: (context, state) {
         print('PropsPanel => ${widget.props}');
+        if (widget.props != null) {
+          bpWidgetPropsForm.controls['label']?.updateValue(
+            widget.props!.bpwidgetProps!.label,
+          );
+          bpWidgetPropsForm.controls['controlName']?.updateValue(
+            widget.props!.bpwidgetProps!.controlName,
+          );
+          bpWidgetPropsForm.controls['controlType']?.updateValue(
+            widget.props!.bpwidgetProps!.controlType,
+          );
 
-        bpWidgetPropsForm.controls['label']?.updateValue(widget.props!.label);
-        bpWidgetPropsForm.controls['controlName']?.updateValue(
-          widget.props!.controlName,
-        );
-        bpWidgetPropsForm.controls['controlType']?.updateValue(
-          widget.props!.controlType,
-        );
-
-        bpWidgetPropsForm.controls['isRequired']?.updateValue(
-          widget.props!.isRequired,
-        );
-        bpWidgetPropsForm.controls['min']?.updateValue(widget.props!.min);
-        bpWidgetPropsForm.controls['max']?.updateValue(widget.props!.max);
-        bpWidgetPropsForm.controls['isVerificationRequired']?.updateValue(
-          widget.props!.isVerificationRequired,
-        );
-        bpWidgetPropsForm.controls['validationPatterns']?.updateValue(
-          widget.props!.validationPatterns,
-        );
-
+          bpWidgetPropsForm.controls['isRequired']?.updateValue(
+            widget.props!.bpwidgetProps!.isRequired,
+          );
+          bpWidgetPropsForm.controls['min']?.updateValue(
+            widget.props!.bpwidgetProps!.min,
+          );
+          bpWidgetPropsForm.controls['max']?.updateValue(
+            widget.props!.bpwidgetProps!.max,
+          );
+          bpWidgetPropsForm.controls['isVerificationRequired']?.updateValue(
+            widget.props!.bpwidgetProps!.isVerificationRequired,
+          );
+          bpWidgetPropsForm.controls['validationPatterns']?.updateValue(
+            widget.props!.bpwidgetProps!.validationPatterns,
+          );
+        }
         return ReactiveForm(
           formGroup: bpWidgetPropsForm,
           child: Card(
@@ -98,7 +104,7 @@ class _PropsPanelState extends State<PropsPanel> {
                       formControlName: 'label',
                       onChange: (val) {
                         bpWidgetPropsForm.controls['controlName']!.value =
-                            widget.props!.controlName;
+                            widget.props!.bpwidgetProps!.controlName;
                         bpWidgetPropsForm.controls['controlName']!.patchValue(
                           '${bpWidgetPropsForm.controls['controlName']!.value}${val.value}',
                         );

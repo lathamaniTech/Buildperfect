@@ -11,18 +11,20 @@ class BPWidget {
   final PlaceholderWidgets? widgetType;
   final String? id;
   BpwidgetProps? bpwidgetProps;
-  BpwidgetAction? bpwidgetAction;
+  List<BpwidgetAction>? bpwidgetAction;
   BPWidget({this.widgetType, this.id, this.bpwidgetProps, this.bpwidgetAction});
 
   BPWidget copyWith({
     PlaceholderWidgets? widgetType,
     String? id,
     BpwidgetProps? bpwidgetProps,
+    List<BpwidgetAction>? bpwidgetAction,
   }) {
     return BPWidget(
       widgetType: widgetType ?? this.widgetType,
       id: id ?? this.id,
       bpwidgetProps: bpwidgetProps ?? this.bpwidgetProps,
+      bpwidgetAction: bpwidgetAction ?? this.bpwidgetAction,
     );
   }
 }

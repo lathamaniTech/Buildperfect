@@ -18,9 +18,17 @@ part './bpwidget_event.dart';
 class BpwidgetBloc extends Bloc<BpwidgetEvent, BpwidgetState> {
   BpwidgetBloc() : super(BpwidgetState.init()) {
     on<BpwidgetLoadProps>(onBpwidgetLoadProps);
+    on<BpwidgetLoadAction>(onBpwidgetLoadActions);
   }
 
   Future<void> onBpwidgetLoadProps(BpwidgetLoadProps ev, Emitter emit) async {
+    emit(state.copyWith(bpWidgetsList: List.from([ev.bpWidget])));
+  }
+
+  Future<void> onBpwidgetLoadActions(
+    BpwidgetLoadAction ev,
+    Emitter emit,
+  ) async {
     emit(state.copyWith(bpWidgetsList: List.from([ev.bpWidget])));
   }
 }

@@ -9,6 +9,14 @@ the array of formcontrol knows as [List<BPWidgets>]
 
 BPWidgetsList contains all the dragged BPWidgets , you can get it from [SplitPanel] {upper} property
 
+## BpwidgetBloc
+
+BpwidgetBloc manages very important event and state handler.
+This contains the necessary event handler that updates the
+bpwidgetprops
+bpwidgetevents
+bpwidgetdatasource properties
+
 ## Configure Formcontrol properties
 
 click on the dragged BPWiget to configure formcontrol properties [BpwidgetProps]

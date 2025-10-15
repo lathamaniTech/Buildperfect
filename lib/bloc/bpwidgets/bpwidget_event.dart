@@ -14,4 +14,7 @@ class BpwidgetLoadProps extends BpwidgetEvent {
   BpwidgetLoadProps({this.bpWidget});
 }
 
-class BpwidgetLoadAction extends BpwidgetEvent {}
+class BpwidgetLoadAction extends BpwidgetEvent {
+  final BPWidget? bpWidget;
+  BpwidgetLoadAction({this.bpWidget});
+}
